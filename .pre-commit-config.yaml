@@ -9,21 +9,24 @@ repos:
       - id: check-yaml
         args:
           - --unsafe
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
 
   - repo: local
     hooks:
-      - id: lint
-        name: lint
-        entry: make lint
+      - id: ruff-check
+        name: ruff check
+        entry: backend/.venv/bin/python -m ruff check
         language: system
         types: [python]
-        pass_filenames: false
 
-      - id: format
-        name: format
-        entry: make format
+      - id: ruff-format
+        name: ruff format
+        entry: backend/.venv/bin/python -m ruff format --check
+        language: system
+        types: [python]
+
+      - id: mypy
+        name: mypy
+        entry: backend/.venv/bin/python -m mypy backend/app
         language: system
         types: [python]
         pass_filenames: false
