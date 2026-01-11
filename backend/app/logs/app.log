@@ -1,0 +1,638 @@
+2026-01-11 11:45:22,808 - root - INFO - Redis connection successful.
+2026-01-11 11:45:22,836 - root - INFO - Database connection successful.
+2026-01-11 11:45:47,603 - root - INFO - Redis connection successful.
+2026-01-11 11:45:47,619 - root - INFO - Database connection successful.
+2026-01-11 11:46:59,045 - root - INFO - Redis connection successful.
+2026-01-11 11:46:59,070 - root - INFO - Database connection successful.
+2026-01-11 11:47:43,790 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 11:47:43,826 - root - WARNING - Database connection attempt 1 failed for locaslhost. Retrying in 5 seconds...
+2026-01-11 11:47:48,832 - root - WARNING - Database connection attempt 2 failed for locaslhost. Retrying in 5 seconds...
+2026-01-11 11:47:53,838 - root - WARNING - Database connection attempt 3 failed for locaslhost. Retrying in 5 seconds...
+2026-01-11 11:47:58,843 - root - WARNING - Database connection attempt 4 failed for locaslhost. Retrying in 5 seconds...
+2026-01-11 11:48:03,850 - root - ERROR - Database connection failed after 5 attempts to locaslhost: [Errno 8] nodename nor servname provided, or not known
+2026-01-11 12:21:53,388 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:21:53,395 - root - WARNING - Database connection attempt 1 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:21:55,402 - root - WARNING - Database connection attempt 2 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:21:57,409 - root - WARNING - Database connection attempt 3 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:21:59,415 - root - WARNING - Database connection attempt 4 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:01,419 - root - ERROR - Database connection failed after 5 attempts to locaslhost: [Errno 8] nodename nor servname provided, or not known
+2026-01-11 12:22:15,453 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:22:15,459 - root - WARNING - Database connection attempt 1 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:17,464 - root - WARNING - Database connection attempt 2 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:19,471 - root - WARNING - Database connection attempt 3 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:21,475 - root - WARNING - Database connection attempt 4 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:23,479 - root - ERROR - Database connection failed after 5 attempts to locaslhost: [Errno 8] nodename nor servname provided, or not known
+2026-01-11 12:22:36,327 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:22:36,331 - root - WARNING - Database connection attempt 1 failed for locaslhost. Retrying in 2 seconds...
+2026-01-11 12:22:38,337 - root - ERROR - Database connection failed after 2 attempts to locaslhost: [Errno 8] nodename nor servname provided, or not known
+2026-01-11 12:29:30,987 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:29:31,027 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 12:32:14,524 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:32:14,541 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 12:32:19,939 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:32:19,949 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 12:32:24,347 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:32:24,359 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 12:46:50,991 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 12:46:51,005 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:00:27,810 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:00:27,845 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:03:18,191 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:03:18,222 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:05:15,613 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:05:15,632 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:05:56,985 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:05:57,003 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:06:41,176 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:06:41,192 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:08:09,269 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:08:09,285 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 13:33:05,383 - root - INFO - Redis connection successful to localhost:6379
+2026-01-11 13:33:05,400 - root - INFO - Database connection successful to localhost:5432/fastpibp
+2026-01-11 08:45:15,611 - arq.worker - INFO - Starting worker for 1 functions: sample_background_task
+2026-01-11 08:45:15,612 - arq.worker - INFO - redis_version=7.4.7 mem_usage=1.04M clients_connected=1 db_keys=0
+2026-01-11 08:45:15,612 - app.core.worker - INFO - Worker Started
+2026-01-11 08:45:15,643 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 08:45:15,946 - root - INFO - Redis connection successful to redis:6379
+2026-01-11 08:45:15,968 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 09:07:28,190 - arq.worker - INFO - Starting worker for 1 functions: sample_background_task
+2026-01-11 09:07:28,191 - arq.worker - INFO - redis_version=7.4.7 mem_usage=1.04M clients_connected=1 db_keys=1
+2026-01-11 09:07:28,191 - app.core.worker - INFO - Worker Started
+2026-01-11 09:07:28,214 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 09:51:50,129 - arq.worker - INFO - Starting worker for 1 functions: sample_background_task
+2026-01-11 09:51:50,130 - arq.worker - INFO - redis_version=7.4.7 mem_usage=1.04M clients_connected=1 db_keys=1
+2026-01-11 09:51:50,130 - app.core.worker - INFO - Worker Started
+2026-01-11 09:51:50,152 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 09:53:08,941 - arq.worker - INFO - Starting worker for 1 functions: sample_background_task
+2026-01-11 09:53:08,942 - arq.worker - INFO - redis_version=7.4.7 mem_usage=1.04M clients_connected=1 db_keys=0
+2026-01-11 09:53:08,942 - app.core.worker - INFO - Worker Started
+2026-01-11 09:53:08,963 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 09:53:11,071 - root - INFO - Redis connection successful to redis:6379
+2026-01-11 09:54:07,288 - arq.worker - INFO - Starting worker for 1 functions: sample_background_task
+2026-01-11 09:54:07,289 - arq.worker - INFO - redis_version=7.4.7 mem_usage=1.04M clients_connected=1 db_keys=1
+2026-01-11 09:54:07,289 - app.core.worker - INFO - Worker Started
+2026-01-11 09:54:07,310 - root - INFO - Database connection successful to db:5432/fastapi
+2026-01-11 09:54:09,483 - root - INFO - Redis connection successful to redis:6379
+2026-01-11 15:18:25,809 - arq.connections - WARNING - redis connection error redis:6379 ConnectionError Error 8 connecting to redis:6379. nodename nor servname provided, or not known., 5 retries remaining...
+2026-01-11 15:18:26,813 - arq.connections - WARNING - redis connection error redis:6379 ConnectionError Error 8 connecting to redis:6379. nodename nor servname provided, or not known., 4 retries remaining...
+2026-01-11 15:18:27,817 - arq.connections - WARNING - redis connection error redis:6379 ConnectionError Error 8 connecting to redis:6379. nodename nor servname provided, or not known., 3 retries remaining...
+2026-01-11 15:18:28,820 - arq.connections - WARNING - redis connection error redis:6379 ConnectionError Error 8 connecting to redis:6379. nodename nor servname provided, or not known., 2 retries remaining...
+2026-01-11 15:18:29,823 - arq.connections - WARNING - redis connection error redis:6379 ConnectionError Error 8 connecting to redis:6379. nodename nor servname provided, or not known., 1 retries remaining...
+2026-01-11 15:18:54,297 - root - INFO - Redis connection successful to localhost:6379 (Verified: Cache, Queue, RateLimit)
+2026-01-11 15:19:15,373 - root - INFO - Redis connection successful to localhost:6379 (Verified: Queue, RateLimit)
+2026-01-11 15:45:36,324 - root - INFO - Redis connection successful to localhost:6379 (Verified: Queue, RateLimit)
+2026-01-11 15:59:38,116 - httpx - INFO - HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-01-11 15:59:38,139 - app.core.health - ERROR - Database health check failed with error: database "fastapi" does not exist
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2241, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2110, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1189, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3273, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 179, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 961, in connect
+    await_only(creator_fn(*arg, **kw)),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<20 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 886, in _connect_addr
+    return await __connect_addr(params, True, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 934, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidCatalogNameError: database "fastapi" does not exist
+2026-01-11 15:59:38,151 - httpx - INFO - HTTP Request: GET http://test/api/v1/ready "HTTP/1.1 503 Service Unavailable"
+2026-01-11 15:59:44,466 - app.commands.create_first_superuser - ERROR - Error creating admin user: database "fastapi" does not exist
+2026-01-11 15:59:44,706 - app.commands.create_first_superuser - ERROR - Error creating admin user: database "fastapi" does not exist
+2026-01-11 15:59:50,298 - httpx - INFO - HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-01-11 16:00:18,169 - httpx - INFO - HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-01-11 16:00:18,185 - app.core.health - ERROR - Database health check failed with error: database "fastapi" does not exist
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2241, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2110, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1189, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3273, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 179, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 961, in connect
+    await_only(creator_fn(*arg, **kw)),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<20 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 886, in _connect_addr
+    return await __connect_addr(params, True, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 934, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidCatalogNameError: database "fastapi" does not exist
+2026-01-11 16:00:18,199 - httpx - INFO - HTTP Request: GET http://test/api/v1/ready "HTTP/1.1 503 Service Unavailable"
+2026-01-11 16:00:53,933 - app.core.health - ERROR - Database health check failed with error: database "fastapi" does not exist
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2241, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2110, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1189, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3273, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 179, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 961, in connect
+    await_only(creator_fn(*arg, **kw)),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<20 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 886, in _connect_addr
+    return await __connect_addr(params, True, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 934, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidCatalogNameError: database "fastapi" does not exist
+2026-01-11 16:00:53,944 - httpx - INFO - HTTP Request: GET http://test/api/v1/ready "HTTP/1.1 503 Service Unavailable"
+2026-01-11 16:03:04,528 - app.core.health - ERROR - Database health check failed with error: database "fastapi" does not exist
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2241, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2110, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 1189, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3273, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3297, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 713, in checkout
+    rec = pool._do_get()
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 179, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 675, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 961, in connect
+    await_only(creator_fn(*arg, **kw)),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<20 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 886, in _connect_addr
+    return await __connect_addr(params, True, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/.venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 934, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidCatalogNameError: database "fastapi" does not exist
+2026-01-11 16:03:10,844 - app.commands.create_first_superuser - ERROR - Error creating admin user: database "fastapi" does not exist
+2026-01-11 16:03:11,086 - app.commands.create_first_superuser - ERROR - Error creating admin user: database "fastapi" does not exist
+2026-01-11 16:07:05,280 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129620: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:09:36,084 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129740: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:09:49,172 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129740: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:10:23,573 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129800: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:11:15,305 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129860: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:13:59,317 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768129980: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:23:17,315 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768130580: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:23:19,843 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 16:23:19,850 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 16:26:32,408 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768130760: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:26:34,892 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 16:26:34,900 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 16:30:10,749 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768131000: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 16:30:13,491 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 16:30:13,512 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 17:51:47,333 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768135860: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 17:51:49,791 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 17:51:49,800 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 17:52:23,773 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768135920: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 17:52:26,335 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 17:52:26,344 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 17:54:30,207 - root - INFO - Redis connection successful to localhost:6379 (Verified: Queue, RateLimit)
