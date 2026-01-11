@@ -35,7 +35,6 @@ dev = [
     "mypy>=1.16.0",
     "types-redis>=4.6.0",
     "ruff>=0.11.13",
-    "pre-commit>=4.3.0",
     "aiosqlite>=0.22.1",
 ]
 
