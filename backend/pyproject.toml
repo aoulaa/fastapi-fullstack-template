@@ -5,7 +5,7 @@ description = "FastAPI Fullstack starter with production-ready defaults, optiona
 authors = [{ name = "Olimbek Nizomov", email = "nizomov.olimbek@gmail.com" }]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.11, <4"
+requires-python = ">=3.11, <3.14"
 dependencies = [
     "pydantic[email]>=2.6.1",
     "fastapi>=0.109.1",
