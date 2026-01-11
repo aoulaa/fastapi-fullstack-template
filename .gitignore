@@ -61,4 +61,3 @@ Thumbs.db
 .docker/
 # Logs
 backend/app/logs/*.log
-
