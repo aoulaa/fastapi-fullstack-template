@@ -68,7 +68,7 @@ class RateLimit:
         self.limit = limit
         self.period = period
 
-    async def __call__(self, request: Request):
+    async def __call__(self, request: Request) -> None:
         # Use IP + Sanitized Path + Window Start as the key
         ip = request.client.host if request.client else "unknown"
         path = sanitize_path(request.url.path)

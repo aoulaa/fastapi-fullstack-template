@@ -42,7 +42,7 @@ async def create_first_user(session: AsyncSession) -> None:
         logger.error(f"Error creating admin user: {e}")
 
 
-async def main():
+async def main() -> None:
     async with local_session() as session:
         await create_first_user(session)
 

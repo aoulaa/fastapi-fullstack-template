@@ -27,6 +27,7 @@ from sqlalchemy.schema import CreateColumn
 
 from app.core.db import Base, async_get_db
 from app.core.security import create_access_token
+from app.core.utils.cache import async_get_redis
 from app.main import app
 
 # --- SQLite Compatibility Fixes ---
@@ -83,8 +84,9 @@ async def db(db_engine) -> AsyncGenerator[AsyncSession, None]:
 
 
 @pytest_asyncio.fixture(scope="function")
-async def client(db: AsyncSession) -> AsyncGenerator[AsyncClient, None]:
+async def client(db: AsyncSession, mock_redis: AsyncMock) -> AsyncGenerator[AsyncClient, None]:
     app.dependency_overrides[async_get_db] = lambda: db
+    app.dependency_overrides[async_get_redis] = lambda: mock_redis
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         yield ac
     app.dependency_overrides.clear()

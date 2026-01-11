@@ -636,3 +636,45 @@ Traceback (most recent call last):
     raise effect
 Exception: Redis Error
 2026-01-11 17:54:30,207 - root - INFO - Redis connection successful to localhost:6379 (Verified: Queue, RateLimit)
+2026-01-11 18:20:09,867 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768137600: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 18:20:12,319 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 18:20:12,325 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error
+2026-01-11 18:20:30,741 - httpx - INFO - HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-01-11 18:20:30,746 - httpx - INFO - HTTP Request: GET http://test/api/v1/ready "HTTP/1.1 200 OK"
+2026-01-11 18:20:48,209 - app.core.utils.rate_limit - ERROR - Error checking rate limit for key ratelimit:127.0.0.1:/api/v1/tasks/task:1768137600: '>' not supported between instances of 'AsyncMock' and 'int'
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/utils/rate_limit.py", line 54, in is_rate_limited
+    if current_count > limit:
+       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'AsyncMock' and 'int'
+2026-01-11 18:20:50,663 - app.core.health - ERROR - Database health check failed with error: DB Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 12, in check_database_health
+    await db.execute(text("SELECT 1"))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: DB Error
+2026-01-11 18:20:50,671 - app.core.health - ERROR - Redis health check failed with error: Redis Error
+Traceback (most recent call last):
+  File "/Users/olimbeknizomov/Documents/projects/FastAPI-Fullstack-Boilerplate/backend/app/core/health.py", line 21, in check_redis_health
+    await redis.ping()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py", line 2321, in _execute_mock_call
+    raise effect
+Exception: Redis Error

@@ -24,7 +24,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-def import_models(package_name):
+def import_models(package_name: str) -> None:
     package = importlib.import_module(package_name)
     for _, module_name, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
         importlib.import_module(module_name)
