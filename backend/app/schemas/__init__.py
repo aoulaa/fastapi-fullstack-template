@@ -7,3 +7,13 @@ from .token_blacklist import (
     TokenBlacklistRead,
     TokenBlacklistUpdate,
 )
+from .users import (
+    User,
+    UserCreate,
+    UserCreateInternal,
+    UserDelete,
+    UserRead,
+    UserRestoreDeleted,
+    UserUpdate,
+    UserUpdateInternal,
+)

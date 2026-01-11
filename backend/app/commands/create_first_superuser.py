@@ -29,6 +29,7 @@ async def create_first_user(session: AsyncSession) -> None:
                 email=email,
                 username=username,
                 hashed_password=hashed_password,
+                is_active=True,
                 is_superuser=True,
             )
             session.add(user)

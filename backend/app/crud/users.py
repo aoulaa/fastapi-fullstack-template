@@ -1,8 +1,10 @@
+from typing import Any
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.security import get_password_hash, verify_password
 from app.models.user import User
-from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.users import UserCreate, UserUpdate
 
 from .base import BaseCRUD
 
@@ -82,12 +84,10 @@ class CRUDUser(BaseCRUD[User]):
         Exception
             If email or username already exists (handle in route layer).
         """
-        # Hash the password
         hashed_password = get_password_hash(user_create.password)
 
-        # Create user instance
-        user_data = user_create.model_dump(exclude={"password"})
-        db_user = User(**user_data, hashed_password=hashed_password)
+        user_data = user_create.model_dump(exclude={"password", "name"})
+        db_user = User(**user_data, hashed_password=hashed_password, name=user_create.name)
 
         db.add(db_user)
         await db.commit()
@@ -98,7 +98,7 @@ class CRUDUser(BaseCRUD[User]):
         self,
         db: AsyncSession,
         db_user: User,
-        user_update: UserUpdate,
+        user_update: UserUpdate | dict[str, Any],
     ) -> User:
         """Update user information.
 
@@ -108,7 +108,7 @@ class CRUDUser(BaseCRUD[User]):
             The database session.
         db_user : User
             The existing user instance to update.
-        user_update : UserUpdate
+        user_update : UserUpdate | dict
             Fields to update (only provided fields will be updated).
 
         Returns
@@ -116,9 +116,14 @@ class CRUDUser(BaseCRUD[User]):
         User
             The updated user instance.
         """
-        update_data = user_update.model_dump(exclude_unset=True)
+        if isinstance(user_update, dict):
+            update_data = user_update
+        else:
+            update_data = user_update.model_dump(exclude_unset=True)
 
-        # Update fields
+        if "password" in update_data:
+            update_data["hashed_password"] = get_password_hash(update_data.pop("password"))
+
         for field, value in update_data.items():
             setattr(db_user, field, value)
 
@@ -149,7 +154,6 @@ class CRUDUser(BaseCRUD[User]):
         User | None
             The user if authentication succeeds, None otherwise.
         """
-        # Determine if input is email or username
         if "@" in username_or_email:
             db_user = await self.get_by_email(db, email=username_or_email)
         else:
@@ -158,12 +162,10 @@ class CRUDUser(BaseCRUD[User]):
         if db_user is None:
             return None
 
-        # Verify password
         if not await verify_password(password, db_user.hashed_password):
             return None
 
         return db_user
 
 
-# Create a singleton instance
 crud_users = CRUDUser(User)

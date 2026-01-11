@@ -6,7 +6,6 @@ from typing import Any
 
 import anyio
 import fastapi
-import redis.asyncio as redis
 from arq import create_pool
 from arq.connections import RedisSettings as ArqRedisSettings
 from fastapi import APIRouter, Depends, FastAPI
@@ -17,12 +16,10 @@ from sqlalchemy import text
 
 from app.api.deps import get_current_superuser
 from app.core.utils.rate_limit import rate_limiter
-from app.middleware.client_cache_middleware import ClientCacheMiddleware
 from app.models import *  # noqa: F403
 
 from .config import (
     AppSettings,
-    ClientSideCacheSettings,
     CORSSettings,
     DatabaseSettings,
     DefaultRateLimitSettings,
@@ -126,16 +123,6 @@ async def check_redis_connection() -> None:
 # different URLs from your settings.
 
 
-async def create_redis_cache_pool() -> None:
-    cache.pool = redis.ConnectionPool.from_url(settings.REDIS_URL)
-    cache.client = redis.Redis.from_pool(cache.pool)  # type: ignore
-
-
-async def close_redis_cache_pool() -> None:
-    if cache.client is not None:
-        await cache.client.aclose()  # type: ignore
-
-
 # -------------- queue --------------
 async def create_redis_queue_pool() -> None:
     queue.pool = await create_pool(ArqRedisSettings(host=settings.REDIS_HOST, port=settings.REDIS_PORT))
@@ -164,13 +151,7 @@ async def set_threadpool_tokens(number_of_tokens: int = 100) -> None:
 
 def lifespan_factory(
     settings: (
-        DatabaseSettings
-        | RedisSettings
-        | AppSettings
-        | ClientSideCacheSettings
-        | CORSSettings
-        | DefaultRateLimitSettings
-        | EnvironmentSettings
+        DatabaseSettings | RedisSettings | AppSettings | CORSSettings | DefaultRateLimitSettings | EnvironmentSettings
     ),
 ) -> Callable[[FastAPI], _AsyncGeneratorContextManager[Any]]:
     """Factory to create a lifespan async context manager for a FastAPI app."""
@@ -188,14 +169,11 @@ def lifespan_factory(
             if isinstance(settings, RedisSettings):
                 any_redis_enabled = any(
                     [
-                        settings.ENABLE_REDIS_CACHE,
                         settings.ENABLE_REDIS_QUEUE,
                         settings.ENABLE_REDIS_RATE_LIMIT,
                     ]
                 )
                 if any_redis_enabled:
-                    if settings.ENABLE_REDIS_CACHE:
-                        await create_redis_cache_pool()
                     if settings.ENABLE_REDIS_QUEUE:
                         await create_redis_queue_pool()
                     if settings.ENABLE_REDIS_RATE_LIMIT:
@@ -203,14 +181,15 @@ def lifespan_factory(
 
                     await check_redis_connection()
 
+            if isinstance(settings, DatabaseSettings):
+                await check_database_connection()
+
             initialization_complete.set()
 
             yield
 
         finally:
             if isinstance(settings, RedisSettings):
-                if settings.ENABLE_REDIS_CACHE:
-                    await close_redis_cache_pool()
                 if settings.ENABLE_REDIS_QUEUE:
                     await close_redis_queue_pool()
                 if settings.ENABLE_REDIS_RATE_LIMIT:
@@ -223,13 +202,7 @@ def lifespan_factory(
 def create_application(
     router: APIRouter,
     settings: (
-        DatabaseSettings
-        | RedisSettings
-        | AppSettings
-        | ClientSideCacheSettings
-        | CORSSettings
-        | DefaultRateLimitSettings
-        | EnvironmentSettings
+        DatabaseSettings | RedisSettings | AppSettings | CORSSettings | DefaultRateLimitSettings | EnvironmentSettings
     ),
     lifespan: Callable[[FastAPI], _AsyncGeneratorContextManager[Any]] | None = None,
     **kwargs: Any,
@@ -254,9 +227,6 @@ def create_application(
 
     application = FastAPI(lifespan=lifespan, **kwargs)
     application.include_router(router)
-
-    if isinstance(settings, ClientSideCacheSettings):
-        application.add_middleware(ClientCacheMiddleware, max_age=settings.CLIENT_CACHE_MAX_AGE)
 
     if isinstance(settings, CORSSettings):
         application.add_middleware(

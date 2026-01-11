@@ -1,16 +1,12 @@
 import logging
 from datetime import UTC, datetime
-from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
-from redis.asyncio import Redis
-from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.deps import RedisDep, SessionDep
 from app.core.config import settings
-from app.core.db import async_get_db
 from app.core.health import check_database_health, check_redis_health
-from app.core.utils.cache import async_get_redis
 from app.schemas.health import HealthCheck, ReadyCheck
 
 router = APIRouter(tags=["health"])
@@ -23,29 +19,28 @@ LOGGER = logging.getLogger(__name__)
 
 @router.get("/health", response_model=HealthCheck)
 async def health() -> JSONResponse:
-    http_status = status.HTTP_200_OK
+    """Basic health check to verify the application is up."""
     response = {
         "status": STATUS_HEALTHY,
         "environment": settings.ENVIRONMENT.value,
         "version": settings.APP_VERSION,
         "timestamp": datetime.now(UTC).isoformat(timespec="seconds"),
     }
-
-    return JSONResponse(status_code=http_status, content=response)
+    return JSONResponse(status_code=status.HTTP_200_OK, content=response)
 
 
 @router.get("/ready", response_model=ReadyCheck)
 async def ready(
-    redis: Annotated[Redis, Depends(async_get_redis)],
-    db: Annotated[AsyncSession, Depends(async_get_db)],
+    redis: RedisDep,
+    db: SessionDep,
 ) -> JSONResponse:
+    """Readiness check to verify external dependencies (DB, Redis) are available."""
     database_status = await check_database_health(db=db)
-    LOGGER.debug(f"Database health check status: {database_status}")
     redis_status = await check_redis_health(redis=redis)
-    LOGGER.debug(f"Redis health check status: {redis_status}")
 
-    overall_status = STATUS_HEALTHY if database_status and redis_status else STATUS_UNHEALTHY
-    http_status = status.HTTP_200_OK if overall_status == STATUS_HEALTHY else status.HTTP_503_SERVICE_UNAVAILABLE
+    is_healthy = database_status and redis_status
+    overall_status = STATUS_HEALTHY if is_healthy else STATUS_UNHEALTHY
+    http_status = status.HTTP_200_OK if is_healthy else status.HTTP_503_SERVICE_UNAVAILABLE
 
     response = {
         "status": overall_status,

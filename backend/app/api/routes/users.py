@@ -1,146 +1,218 @@
+import re
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_superuser, get_current_user
-from app.core.db import async_get_db
+from app.api.deps import CurrentUser, SessionDep, SuperUserDep
 from app.core.exceptions import DuplicateValueException, ForbiddenException, NotFoundException
-from app.core.security import blacklist_token, oauth2_scheme
+from app.core.security import blacklist_token, get_password_hash, oauth2_scheme, verify_password
 from app.crud import crud_users
-from app.schemas.user import UserCreate, UserRead, UserUpdate
+from app.schemas.users import UpdatePassword, UserCreate, UserRead, UserUpdate
 
-router = APIRouter(tags=["users"])
+router = APIRouter(prefix="/users", tags=["users"])
 
 
 class PaginatedResponse(BaseModel):
-    """Pagination response wrapper."""
-
     data: list[UserRead]
-    total_count: int
-    page: int
-    items_per_page: int
-    total_pages: int
+    count: int
 
 
-@router.post("/user", response_model=UserRead, status_code=201)
+@router.post("/", response_model=UserRead, status_code=201)
 async def write_user(
-    request: Request, user: UserCreate, db: Annotated[AsyncSession, Depends(async_get_db)]
+    request: Request,
+    user: UserCreate,
+    current_user: SuperUserDep,
+    db: SessionDep,
 ) -> UserRead:
-    # Check for duplicates
+    """Create a new user with generated username if missing (Superuser only)."""
     email_exists = await crud_users.exists(db=db, email=user.email)
     if email_exists:
         raise DuplicateValueException("Email is already registered")
 
-    username_exists = await crud_users.exists(db=db, username=user.username)
-    if username_exists:
-        raise DuplicateValueException("Username not available")
+    if user.username:
+        username_exists = await crud_users.exists(db=db, username=user.username)
+        if username_exists:
+            raise DuplicateValueException("Username not available")
+    else:
+        base_username = user.email.split("@")[0]
+        base_username = re.sub(r"[^a-z0-9]", "", base_username.lower())
+        username = base_username
+        counter = 1
+        while await crud_users.exists(db=db, username=username):
+            username = f"{base_username}{counter}"
+            counter += 1
+        user.username = username
 
-    # Create user (password hashing handled in CRUD layer)
     created_user = await crud_users.create(db=db, user_create=user)
-
-    # Convert to response schema
-    return UserRead(**created_user.__dict__)
+    return UserRead.model_validate(created_user)
 
 
-@router.get("/users", response_model=PaginatedResponse)
+@router.get("/", response_model=PaginatedResponse)
 async def read_users(
-    request: Request, db: Annotated[AsyncSession, Depends(async_get_db)], page: int = 1, items_per_page: int = 10
+    db: SessionDep,
+    skip: int = 0,
+    limit: int = 10,
 ) -> PaginatedResponse:
-    offset = (page - 1) * items_per_page
+    """Retrieve users with pagination."""
     result = await crud_users.get_multi(
         db=db,
-        offset=offset,
-        limit=items_per_page,
+        offset=skip,
+        limit=limit,
         is_deleted=False,
     )
 
     users = result["data"]
     total_count = result["total_count"]
-    total_pages = (total_count + items_per_page - 1) // items_per_page
 
     return PaginatedResponse(
-        data=[UserRead(**user.__dict__) for user in users],
-        total_count=total_count,
-        page=page,
-        items_per_page=items_per_page,
-        total_pages=total_pages,
+        data=[UserRead.model_validate(user) for user in users],
+        count=total_count,
     )
 
 
-@router.get("/user/me/", response_model=UserRead)
-async def read_users_me(request: Request, current_user: Annotated[dict, Depends(get_current_user)]) -> UserRead:
-    return UserRead(**current_user)
+@router.get("/me", response_model=UserRead)
+async def read_users_me(current_user: CurrentUser) -> UserRead:
+    """Get current user information."""
+    return UserRead.model_validate(current_user)
 
 
-@router.get("/user/{username}", response_model=UserRead)
-async def read_user(request: Request, username: str, db: Annotated[AsyncSession, Depends(async_get_db)]) -> UserRead:
-    db_user = await crud_users.get_by_username(db=db, username=username, is_deleted=False)
-    if db_user is None:
-        raise NotFoundException("User not found")
-
-    return UserRead(**db_user.__dict__)
-
-
-@router.patch("/user/{username}")
-async def patch_user(
-    request: Request,
+@router.patch("/me", response_model=UserRead)
+async def update_user_me(
     values: UserUpdate,
-    username: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
-    db: Annotated[AsyncSession, Depends(async_get_db)],
-) -> dict[str, str]:
-    db_user = await crud_users.get_by_username(db=db, username=username)
+    current_user: CurrentUser,
+    db: SessionDep,
+) -> UserRead:
+    """Update current user profile."""
+    db_user = await crud_users.get(db=db, id=current_user.id)
     if db_user is None:
         raise NotFoundException("User not found")
 
-    # Check authorization
-    if db_user.username != current_user["username"]:
-        raise ForbiddenException()
-
-    # Check for duplicate email if changing
     if values.email is not None and values.email != db_user.email:
         if await crud_users.exists(db=db, email=values.email):
             raise DuplicateValueException("Email is already registered")
 
-    # Check for duplicate username if changing
     if values.username is not None and values.username != db_user.username:
         if await crud_users.exists(db=db, username=values.username):
             raise DuplicateValueException("Username not available")
 
-    # Update user
-    await crud_users.update(db=db, db_user=db_user, user_update=values)
-    return {"message": "User updated"}
+    update_data = values.model_dump(exclude_unset=True)
+    if not current_user.is_superuser:
+        update_data.pop("is_superuser", None)
+        update_data.pop("is_active", None)
+
+    updated_user = await crud_users.update(db=db, db_user=db_user, user_update=update_data)
+    return UserRead.model_validate(updated_user)
 
 
-@router.delete("/user/{username}")
-async def erase_user(
-    request: Request,
-    username: str,
-    current_user: Annotated[dict, Depends(get_current_user)],
-    db: Annotated[AsyncSession, Depends(async_get_db)],
-    token: str = Depends(oauth2_scheme),
+@router.patch("/me/password", response_model=dict[str, str])
+async def update_password_me(
+    body: UpdatePassword,
+    current_user: CurrentUser,
+    db: SessionDep,
 ) -> dict[str, str]:
-    db_user = await crud_users.get_by_username(db=db, username=username)
+    """Update current user password."""
+    if not await verify_password(body.current_password, current_user.hashed_password):
+        raise ForbiddenException("Incorrect password")
+
+    if body.current_password == body.new_password:
+        raise DuplicateValueException("New password cannot be the same as the current password")
+
+    hashed_password = get_password_hash(body.new_password)
+    await crud_users.update(db=db, db_user=current_user, user_update={"hashed_password": hashed_password})
+    return {"message": "Password updated successfully"}
+
+
+@router.delete("/me", response_model=dict[str, str])
+async def delete_user_me(
+    current_user: CurrentUser,
+    db: SessionDep,
+    token: Annotated[str, Depends(oauth2_scheme)],
+) -> dict[str, str]:
+    """Delete own user account."""
+    if current_user.is_superuser:
+        raise ForbiddenException(
+            "Superusers cannot delete themselves. Please ask another admin to delete your account."
+        )
+
+    await crud_users.delete(db=db, id=current_user.id)
+    await blacklist_token(token=token, db=db)
+    return {"message": "User deleted successfully"}
+
+
+@router.get("/{user_id}", response_model=UserRead)
+async def read_user_by_id(
+    user_id: int,
+    db: SessionDep,
+) -> UserRead:
+    """Get a specific user by ID."""
+    db_user = await crud_users.get(db=db, id=user_id, is_deleted=False)
+    if db_user is None:
+        raise NotFoundException("User not found")
+
+    return UserRead.model_validate(db_user)
+
+
+@router.patch("/{user_id}", response_model=UserRead)
+async def patch_user(
+    values: UserUpdate,
+    user_id: int,
+    current_user: CurrentUser,
+    db: SessionDep,
+) -> UserRead:
+    """Update a specific user profile (Self or Superuser)."""
+    db_user = await crud_users.get(db=db, id=user_id)
+    if db_user is None:
+        raise NotFoundException("User not found")
+
+    if not current_user.is_superuser and db_user.id != current_user.id:
+        raise ForbiddenException()
+
+    if values.email is not None and values.email != db_user.email:
+        if await crud_users.exists(db=db, email=values.email):
+            raise DuplicateValueException("Email is already registered")
+
+    if values.username is not None and values.username != db_user.username:
+        if await crud_users.exists(db=db, username=values.username):
+            raise DuplicateValueException("Username not available")
+
+    update_data = values.model_dump(exclude_unset=True)
+    if not current_user.is_superuser:
+        update_data.pop("is_superuser", None)
+        update_data.pop("is_active", None)
+
+    updated_user = await crud_users.update(db=db, db_user=db_user, user_update=update_data)
+    return UserRead.model_validate(updated_user)
+
+
+@router.delete("/{user_id}")
+async def erase_user(
+    user_id: int,
+    current_user: CurrentUser,
+    db: SessionDep,
+    token: Annotated[str, Depends(oauth2_scheme)],
+) -> dict[str, str]:
+    """Delete a user profile (Self or Superuser)."""
+    db_user = await crud_users.get(db=db, id=user_id)
     if not db_user:
         raise NotFoundException("User not found")
 
-    if username != current_user["username"]:
+    if not current_user.is_superuser and user_id != current_user.id:
         raise ForbiddenException()
 
-    await crud_users.delete(db=db, username=username)
+    await crud_users.delete(db=db, id=user_id)
     await blacklist_token(token=token, db=db)
     return {"message": "User deleted"}
 
 
-@router.delete("/db_user/{username}", dependencies=[Depends(get_current_superuser)])
+@router.delete("/db_user/{username}")
 async def erase_db_user(
-    request: Request,
     username: str,
-    db: Annotated[AsyncSession, Depends(async_get_db)],
-    token: str = Depends(oauth2_scheme),
+    current_user: SuperUserDep,
+    db: SessionDep,
+    token: Annotated[str, Depends(oauth2_scheme)],
 ) -> dict[str, str]:
+    """Permanently delete a user from the database (Superuser only)."""
     user_exists = await crud_users.exists(db=db, username=username)
     if not user_exists:
         raise NotFoundException("User not found")

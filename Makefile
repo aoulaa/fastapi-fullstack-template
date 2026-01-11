@@ -24,38 +24,37 @@ install: ## Install dependencies using uv
 
 .PHONY: run
 run: ## Run the FastAPI application locally with reload
-	$(PYTHON) -m uvicorn app.main:app --reload
+	uv --project backend run uvicorn app.main:app --reload
 
 .PHONY: worker
 worker: ## Run the ARQ background worker
-	$(PYTHON) -m arq $(WORKER_SETTINGS)
+	uv --project backend run arq $(WORKER_SETTINGS)
 
 .PHONY: test
 test: ## Run tests using pytest
-	$(PYTHON) -m pytest
+	uv --project backend run pytest
 
 .PHONY: lint
 lint: ## Run linting checks (ruff and mypy)
-	$(PYTHON) -m ruff check .
-	$(PYTHON) -m mypy backend/app
+	uv --project backend run ruff check .
+	cd backend && uv run mypy app
 
 .PHONY: format
 format: ## Run code formatting (ruff)
-	$(PYTHON) -m ruff format .
-	$(PYTHON) -m ruff check . --fix
+	uv --project backend run ruff format .
+	uv --project backend run ruff check . --fix
 
 .PHONY: migrate
 migrate: ## Run database migrations to head
-	$(PYTHON) -m alembic upgrade head
+	cd backend && uv run alembic upgrade head
 
 .PHONY: makemigrations
 makemigrations: ## Create a new database migration (usage: make makemigrations m="migration message")
-	$(PYTHON) -m alembic revision --autogenerate -m "$(m)"
-
+	cd backend && uv run alembic revision --autogenerate -m "$(m)"
 
 .PHONY: cmd
 cmd: ## Run a custom command from app.commands (usage: make cmd n="command_name")
-	$(PYTHON) -m app.commands.$(n)
+	cd backend && uv run python -m app.commands.$(n)
 
 .PHONY: docker-local
 docker-local: ## Start local development services

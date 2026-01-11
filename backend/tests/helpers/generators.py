@@ -20,6 +20,7 @@ async def create_user(db: AsyncSession, is_superuser: bool = False, password: st
         email=email,
         hashed_password=get_password_hash(password),
         profile_image_url=fake.image_url(),
+        is_active=True,
         is_superuser=is_superuser,
     )
 

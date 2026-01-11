@@ -3,6 +3,7 @@ from typing import Any
 from arq.jobs import Job as ArqJob
 from fastapi import APIRouter, Depends, HTTPException
 
+from app.api.deps import CurrentUser
 from app.core.utils import queue
 from app.core.utils.rate_limit import RateLimit
 from app.schemas.job import Job
@@ -11,19 +12,11 @@ router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 
 @router.post("/task", response_model=Job, status_code=201, dependencies=[Depends(RateLimit(limit=10, period=60))])
-async def create_task(message: str) -> dict[str, str]:
-    """Create a new background task.
-
-    Parameters
-    ----------
-    message: str
-        The message or data to be processed by the task.
-
-    Returns
-    -------
-    dict[str, str]
-        A dictionary containing the ID of the created task.
-    """
+async def create_task(
+    message: str,
+    current_user: CurrentUser,
+) -> dict[str, str]:
+    """Create a new background task."""
     if queue.pool is None:
         raise HTTPException(status_code=503, detail="Queue is not available")
 
@@ -35,19 +28,11 @@ async def create_task(message: str) -> dict[str, str]:
 
 
 @router.get("/task/{task_id}")
-async def get_task(task_id: str) -> dict[str, Any] | None:
-    """Get information about a specific background task.
-
-    Parameters
-    ----------
-    task_id: str
-        The ID of the task.
-
-    Returns
-    -------
-    Optional[dict[str, Any]]
-        A dictionary containing information about the task if found, or None otherwise.
-    """
+async def get_task(
+    task_id: str,
+    current_user: CurrentUser,
+) -> dict[str, Any] | None:
+    """Get information about a specific background task."""
     if queue.pool is None:
         raise HTTPException(status_code=503, detail="Queue is not available")
 

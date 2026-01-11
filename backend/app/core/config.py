@@ -71,7 +71,6 @@ class RedisSettings(BaseSettings):
     # update the initialization logic in 'app/core/setup.py'.
 
     # Feature Toggles
-    ENABLE_REDIS_CACHE: bool = True
     ENABLE_REDIS_QUEUE: bool = True
     ENABLE_REDIS_RATE_LIMIT: bool = True
 
@@ -80,12 +79,6 @@ class RedisSettings(BaseSettings):
     def REDIS_URL(self) -> str:
         """Construct Redis connection URL."""
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}"
-
-
-class ClientSideCacheSettings(BaseSettings):
-    """Client-side caching settings."""
-
-    CLIENT_CACHE_MAX_AGE: int = 60
 
 
 class DefaultRateLimitSettings(BaseSettings):
@@ -112,8 +105,8 @@ class EnvironmentSettings(BaseSettings):
 class CORSSettings(BaseSettings):
     """CORS (Cross-Origin Resource Sharing) configuration."""
 
-    CORS_ORIGINS: list[str] = ["*"]
-    CORS_METHODS: list[str] = ["*"]
+    CORS_ORIGINS: list[str] = ["http://localhost:5173"]
+    CORS_METHODS: list[str] = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     CORS_HEADERS: list[str] = ["*"]
 
 
@@ -123,7 +116,6 @@ class Settings(
     CryptSettings,
     FirstUserSettings,
     RedisSettings,
-    ClientSideCacheSettings,
     DefaultRateLimitSettings,
     EnvironmentSettings,
     CORSSettings,

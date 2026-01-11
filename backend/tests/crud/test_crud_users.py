@@ -1,7 +1,7 @@
 import pytest
 
 from app.crud.users import crud_users
-from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.users import UserCreate, UserUpdate
 from tests.helpers.generators import create_user
 
 
