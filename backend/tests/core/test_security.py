@@ -1,4 +1,3 @@
-
 import pytest
 
 from app.core.security import TokenType, create_access_token, get_password_hash, verify_password, verify_token
