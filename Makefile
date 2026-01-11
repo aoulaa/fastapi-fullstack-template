@@ -10,8 +10,13 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: setup
-setup: ## Run initial setup (install, env, migrations, superuser)
+setup: ## Run initial setup (install, env, migrations, pre-commit)
 	./scripts/setup.sh
+	@make install-hooks
+
+.PHONY: install-hooks
+install-hooks: ## Install git hooks (pre-commit)
+	uv --project backend run pre-commit install
 
 .PHONY: install
 install: ## Install dependencies using uv
