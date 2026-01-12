@@ -1,13 +1,7 @@
-import uuid as uuid_pkg
 from datetime import UTC, datetime
 from typing import Any
 
 from pydantic import BaseModel, Field, field_serializer
-from uuid6 import uuid7
-
-
-class UUIDSchema(BaseModel):
-    uuid: uuid_pkg.UUID = Field(default_factory=uuid7)
 
 
 class TimestampSchema(BaseModel):

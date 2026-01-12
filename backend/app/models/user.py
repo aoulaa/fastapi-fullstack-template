@@ -1,7 +1,12 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import BaseModel
+
+if TYPE_CHECKING:
+    from .item import Item
 
 
 class User(BaseModel):
@@ -15,3 +20,6 @@ class User(BaseModel):
     profile_image_url: Mapped[str] = mapped_column(String, default="https://profileimageurl.com", kw_only=True)
     is_active: Mapped[bool] = mapped_column(default=True, kw_only=True)
     is_superuser: Mapped[bool] = mapped_column(default=False, kw_only=True)
+
+    # Relationships
+    items: Mapped[list["Item"]] = relationship("Item", back_populates="owner", cascade="all, delete-orphan", init=False)  # type: ignore

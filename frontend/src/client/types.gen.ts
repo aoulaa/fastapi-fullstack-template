@@ -21,8 +21,8 @@ export type ItemCreate = {
 export type ItemPublic = {
     title: string;
     description?: (string | null);
-    id: string;
-    owner_id: string;
+    id: number;
+    owner_id: number;
 };
 
 export type ItemsPublic = {
@@ -121,20 +121,20 @@ export type ItemsCreateItemData = {
 export type ItemsCreateItemResponse = (ItemPublic);
 
 export type ItemsReadItemData = {
-    id: string;
+    id: number;
 };
 
 export type ItemsReadItemResponse = (ItemPublic);
 
 export type ItemsUpdateItemData = {
-    id: string;
+    id: number;
     requestBody: ItemUpdate;
 };
 
 export type ItemsUpdateItemResponse = (ItemPublic);
 
 export type ItemsDeleteItemData = {
-    id: string;
+    id: number;
 };
 
 export type ItemsDeleteItemResponse = (Message);

@@ -1,6 +1,8 @@
 from .auth import Token, TokenData
-from .base import PersistentDeletion, TimestampSchema, UUIDSchema
+from .base import PersistentDeletion, TimestampSchema
+from .common import Message
 from .health import HealthCheck, ReadyCheck
+from .items import ItemCreate, ItemPublic, ItemsPublic, ItemUpdate
 from .token_blacklist import (
     TokenBlacklistBase,
     TokenBlacklistCreate,

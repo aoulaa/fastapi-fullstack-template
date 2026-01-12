@@ -11,7 +11,7 @@ from pydantic import (
     model_validator,
 )
 
-from .base import PersistentDeletion, TimestampSchema, UUIDSchema
+from .base import PersistentDeletion, TimestampSchema
 
 
 class UserBase(BaseModel):
@@ -41,7 +41,7 @@ class UserBase(BaseModel):
     email: Annotated[EmailStr, Field(examples=["user.userson@example.com"])]
 
 
-class User(TimestampSchema, UserBase, UUIDSchema, PersistentDeletion):
+class User(TimestampSchema, UserBase, PersistentDeletion):
     profile_image_url: Annotated[str, Field(default="https://www.profileimageurl.com")]
     hashed_password: str
     is_superuser: bool = False

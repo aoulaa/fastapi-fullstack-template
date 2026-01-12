@@ -20,7 +20,7 @@ import useCustomToast from "@/hooks/useCustomToast"
 import { handleError } from "@/utils"
 
 interface DeleteItemProps {
-  id: string
+  id: number
   onSuccess: () => void
 }
 
@@ -30,7 +30,7 @@ const DeleteItem = ({ id, onSuccess }: DeleteItemProps) => {
   const { showSuccessToast, showErrorToast } = useCustomToast()
   const { handleSubmit } = useForm()
 
-  const deleteItem = async (id: string) => {
+  const deleteItem = async (id: number) => {
     await ItemsService.deleteItem({ id: id })
   }
 
