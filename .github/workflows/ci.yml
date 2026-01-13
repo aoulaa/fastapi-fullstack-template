@@ -110,6 +110,9 @@ jobs:
 
           # Frontend
           VITE_API_URL=http://localhost:8000
+
+          # Logs (prevent permission issues in CI)
+          LOG_DIR=/tmp
           EOF
 
       - name: Start backend services
