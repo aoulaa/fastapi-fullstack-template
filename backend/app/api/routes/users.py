@@ -18,7 +18,7 @@ class PaginatedResponse(BaseModel):
     count: int
 
 
-@router.post("/", response_model=UserRead, status_code=201)
+@router.post("/", response_model=UserRead, status_code=201, operation_id="create_user")
 async def write_user(
     request: Request,
     user: UserCreate,
@@ -48,7 +48,7 @@ async def write_user(
     return UserRead.model_validate(created_user)
 
 
-@router.get("/", response_model=PaginatedResponse)
+@router.get("/", response_model=PaginatedResponse, operation_id="read_users")
 async def read_users(
     db: SessionDep,
     skip: int = 0,
@@ -71,13 +71,13 @@ async def read_users(
     )
 
 
-@router.get("/me", response_model=UserRead)
+@router.get("/me", response_model=UserRead, operation_id="read_user_me")
 async def read_users_me(current_user: CurrentUser) -> UserRead:
     """Get current user information."""
     return UserRead.model_validate(current_user)
 
 
-@router.patch("/me", response_model=UserRead)
+@router.patch("/me", response_model=UserRead, operation_id="update_user_me")
 async def update_user_me(
     values: UserUpdate,
     current_user: CurrentUser,
@@ -105,7 +105,7 @@ async def update_user_me(
     return UserRead.model_validate(updated_user)
 
 
-@router.patch("/me/password", response_model=dict[str, str])
+@router.patch("/me/password", response_model=dict[str, str], operation_id="update_password_me")
 async def update_password_me(
     body: UpdatePassword,
     current_user: CurrentUser,
@@ -123,7 +123,7 @@ async def update_password_me(
     return {"message": "Password updated successfully"}
 
 
-@router.delete("/me", response_model=dict[str, str])
+@router.delete("/me", response_model=dict[str, str], operation_id="delete_user_me")
 async def delete_user_me(
     current_user: CurrentUser,
     db: SessionDep,
@@ -140,7 +140,7 @@ async def delete_user_me(
     return {"message": "User deleted successfully"}
 
 
-@router.get("/{user_id}", response_model=UserRead)
+@router.get("/{user_id}", response_model=UserRead, operation_id="read_user_by_id")
 async def read_user_by_id(
     user_id: int,
     db: SessionDep,
@@ -153,7 +153,7 @@ async def read_user_by_id(
     return UserRead.model_validate(db_user)
 
 
-@router.patch("/{user_id}", response_model=UserRead)
+@router.patch("/{user_id}", response_model=UserRead, operation_id="update_user")
 async def patch_user(
     values: UserUpdate,
     user_id: int,
@@ -185,7 +185,7 @@ async def patch_user(
     return UserRead.model_validate(updated_user)
 
 
-@router.delete("/{user_id}")
+@router.delete("/{user_id}", operation_id="delete_user")
 async def erase_user(
     user_id: int,
     current_user: CurrentUser,
@@ -205,7 +205,7 @@ async def erase_user(
     return {"message": "User deleted"}
 
 
-@router.delete("/db_user/{username}")
+@router.delete("/db_user/{username}", operation_id="delete_db_user")
 async def erase_db_user(
     username: str,
     current_user: SuperUserDep,

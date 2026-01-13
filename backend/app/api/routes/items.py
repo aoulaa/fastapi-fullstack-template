@@ -10,7 +10,7 @@ from app.schemas.items import ItemCreate, ItemPublic, ItemsPublic, ItemUpdate
 router = APIRouter(prefix="/items", tags=["items"])
 
 
-@router.get("/", response_model=ItemsPublic)
+@router.get("/", response_model=ItemsPublic, operation_id="read_items")
 async def read_items(
     session: SessionDep,
     current_user: CurrentUser,
@@ -34,7 +34,7 @@ async def read_items(
     return ItemsPublic(data=items_data, count=result["total_count"])
 
 
-@router.get("/{id}", response_model=ItemPublic)
+@router.get("/{id}", response_model=ItemPublic, operation_id="read_item")
 async def read_item(
     session: SessionDep,
     current_user: CurrentUser,
@@ -53,7 +53,7 @@ async def read_item(
     return item
 
 
-@router.post("/", response_model=ItemPublic, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=ItemPublic, status_code=status.HTTP_201_CREATED, operation_id="create_item")
 async def create_item(
     *,
     session: SessionDep,
@@ -67,7 +67,7 @@ async def create_item(
     return item
 
 
-@router.put("/{id}", response_model=ItemPublic)
+@router.put("/{id}", response_model=ItemPublic, operation_id="update_item")
 async def update_item(
     *,
     session: SessionDep,
@@ -89,7 +89,7 @@ async def update_item(
     return item
 
 
-@router.delete("/{id}", response_model=Message)
+@router.delete("/{id}", response_model=Message, operation_id="delete_item")
 async def delete_item(
     session: SessionDep,
     current_user: CurrentUser,

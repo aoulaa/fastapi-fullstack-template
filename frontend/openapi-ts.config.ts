@@ -15,13 +15,8 @@ export default defineConfig({
       methodNameBuilder: (operation) => {
         // @ts-expect-error
         let name: string = operation.name
-        // @ts-expect-error
-        const service: string = operation.service
-
-        if (service && name.toLowerCase().startsWith(service.toLowerCase())) {
-          name = name.slice(service.length)
-        }
-
+        
+        // Basic camelCase conversion if needed, though usually operationIds are already good
         return name.charAt(0).toLowerCase() + name.slice(1)
       },
     },

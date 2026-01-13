@@ -103,3 +103,7 @@ clean: ## Clean up temporary files
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
 	find . -type d -name ".mypy_cache" -exec rm -rf {} +
 	find . -type d -name ".ruff_cache" -exec rm -rf {} +
+
+.PHONY: generate-client
+generate-client: ## Generate the frontend client from the backend OpenAPI spec
+	./scripts/generate-client.sh

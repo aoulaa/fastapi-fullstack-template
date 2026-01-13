@@ -21,7 +21,7 @@ from app.schemas.auth import Token
 router = APIRouter(prefix="/login", tags=["login"])
 
 
-@router.post("/access-token", response_model=Token)
+@router.post("/access-token", response_model=Token, operation_id="login_access_token")
 async def login_for_access_token(
     response: Response,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
@@ -46,7 +46,7 @@ async def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/refresh")
+@router.post("/refresh", operation_id="refresh_access_token")
 async def refresh_access_token(request: Request, db: AsyncSession = Depends(async_get_db)) -> dict[str, str]:
     refresh_token = request.cookies.get("refresh_token")
     if not refresh_token:
