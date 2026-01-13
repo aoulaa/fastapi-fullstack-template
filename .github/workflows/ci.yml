@@ -122,11 +122,13 @@ jobs:
             echo "Health check failed! Showing container status and logs..."
             docker ps -a
             echo "=== API Container Logs ==="
-            docker logs fastapi-fullstack-boilerplate-api-1 || echo "Could not fetch API logs"
+            docker compose -f docker-compose.local.yml logs api
+            echo "=== Worker Container Logs ==="
+            docker compose -f docker-compose.local.yml logs worker
             echo "=== Database Container Logs ==="
-            docker logs fastapi-fullstack-boilerplate-db-1 || echo "Could not fetch DB logs"
+            docker compose -f docker-compose.local.yml logs db
             echo "=== Redis Container Logs ==="
-            docker logs fastapi-fullstack-boilerplate-redis-1 || echo "Could not fetch Redis logs"
+            docker compose -f docker-compose.local.yml logs redis
             exit 1
           }
 

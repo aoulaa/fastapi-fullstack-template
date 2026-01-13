@@ -34,8 +34,8 @@ from .utils import cache, queue
 
 # -------------- database --------------
 async def check_database_connection() -> None:
-    max_retries = 2
-    retry_delay = 2  # Reduced delay for better responsiveness
+    max_retries = 5
+    retry_delay = 2
 
     for attempt in range(1, max_retries + 1):
         try:
@@ -70,8 +70,8 @@ async def check_database_connection() -> None:
 
 
 async def check_redis_connection() -> None:
-    max_retries = 2
-    retry_delay = 2  # Reduced delay for better responsiveness
+    max_retries = 5
+    retry_delay = 2
 
     checks = []
     if cache.client is not None:
