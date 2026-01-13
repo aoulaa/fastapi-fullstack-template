@@ -7,9 +7,10 @@ import { useCopyToClipboard } from "@/hooks/useCopyToClipboard"
 import { cn } from "@/lib/utils"
 import { ItemActionsMenu } from "./ItemActionsMenu"
 
-function CopyId({ id }: { id: string }) {
+function CopyId({ id }: { id: number | string }) {
   const [copiedText, copy] = useCopyToClipboard()
-  const isCopied = copiedText === id
+  const idString = String(id)
+  const isCopied = copiedText === idString
 
   return (
     <div className="flex items-center gap-1.5 group">
@@ -18,7 +19,7 @@ function CopyId({ id }: { id: string }) {
         variant="ghost"
         size="icon"
         className="size-6 opacity-0 group-hover:opacity-100 transition-opacity"
-        onClick={() => copy(id)}
+        onClick={() => copy(idString)}
       >
         {isCopied ? (
           <Check className="size-3 text-green-500" />
