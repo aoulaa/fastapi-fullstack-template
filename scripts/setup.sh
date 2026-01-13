@@ -24,10 +24,10 @@ uv --project backend sync
 
 # Run migrations
 echo "⚙️ Running database migrations..."
-uv --project backend run alembic upgrade head
+cd backend && uv --project backend run alembic upgrade head
 
 # Create superuser
 echo "👤 Creating first superuser..."
-uv --project backend run python -m app.commands.create_first_superuser
+cd backend && uv --project backend run python -m app.commands.create_first_superuser
 
 echo "✅ Setup complete! You can now run the app with 'make run' or 'docker-compose up'."
