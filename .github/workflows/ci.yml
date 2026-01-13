@@ -113,7 +113,7 @@ jobs:
           EOF
 
       - name: Start backend services
-        run: docker-compose -f docker-compose.local.yml up -d
+        run: docker compose -f docker-compose.local.yml up -d
 
       - name: Wait for backend to be ready
         run: |
@@ -150,4 +150,4 @@ jobs:
 
       - name: Stop services
         if: always()
-        run: docker-compose -f docker-compose.local.yml down
+        run: docker compose -f docker-compose.local.yml down
