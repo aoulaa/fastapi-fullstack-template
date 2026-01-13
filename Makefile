@@ -34,6 +34,29 @@ worker: ## Run the ARQ background worker
 test: ## Run tests using pytest
 	uv --project backend run pytest
 
+.PHONY: test-frontend
+test-frontend: ## Run frontend Playwright tests
+	cd frontend && npx playwright test
+
+.PHONY: test-frontend-ui
+test-frontend-ui: ## Run frontend tests with Playwright UI
+	cd frontend && npx playwright test --ui
+
+.PHONY: test-frontend-headed
+test-frontend-headed: ## Run frontend tests with visible browser
+	cd frontend && npx playwright test --headed
+
+.PHONY: test-frontend-debug
+test-frontend-debug: ## Run frontend tests in debug mode
+	cd frontend && npx playwright test --debug
+
+.PHONY: test-all
+test-all: ## Run all tests (backend + frontend)
+	@echo "Running backend tests..."
+	@make test
+	@echo "\nRunning frontend tests..."
+	@make test-frontend
+
 .PHONY: lint
 lint: ## Run linting checks (ruff and mypy)
 	uv --project backend run ruff check .

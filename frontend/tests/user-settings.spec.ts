@@ -224,7 +224,7 @@ test.describe("Change password with invalid data", () => {
     await page.getByTestId("confirm-password-input").fill(password)
     await page.getByRole("button", { name: "Update Password" }).click()
     await expect(
-      page.getByText("New password cannot be the same as the current one"),
+      page.getByText("New password cannot be the same as the current password"),
     ).toBeVisible()
   })
 })
