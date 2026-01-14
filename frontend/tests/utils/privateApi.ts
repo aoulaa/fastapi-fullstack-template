@@ -29,7 +29,7 @@ export const createUser = async ({
       requestBody: {
         email,
         password,
-        full_name: "Test User",
+        name: "Test User",
       },
     })
     return user
