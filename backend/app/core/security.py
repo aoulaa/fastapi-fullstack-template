@@ -74,14 +74,6 @@ async def verify_token(token: str, expected_token_type: TokenType, db: AsyncSess
     TokenData | None
         TokenData instance if the token is valid, None otherwise.
     """
-    # Import here to avoid circular import
-    from app.crud import crud_token_blacklist
-
-    # Check if token is blacklisted
-    is_blacklisted = await crud_token_blacklist.is_blacklisted(db, token=token)
-    if is_blacklisted:
-        return None
-
     try:
         payload = jwt.decode(token, SECRET_KEY.get_secret_value(), algorithms=[ALGORITHM])
         username_or_email: str | None = payload.get("sub")
@@ -94,46 +86,3 @@ async def verify_token(token: str, expected_token_type: TokenType, db: AsyncSess
 
     except jwt.PyJWTError:
         return None
-
-
-async def blacklist_tokens(access_token: str, refresh_token: str, db: AsyncSession) -> None:
-    """Blacklist both access and refresh tokens.
-
-    Parameters
-    ----------
-    access_token: str
-        The access token to blacklist
-    refresh_token: str
-        The refresh token to blacklist
-    db: AsyncSession
-        Database session for performing database operations.
-    """
-    # Import here to avoid circular import
-    from app.crud import crud_token_blacklist
-
-    for token in [access_token, refresh_token]:
-        payload = jwt.decode(token, SECRET_KEY.get_secret_value(), algorithms=[ALGORITHM])
-        exp_timestamp = payload.get("exp")
-        if exp_timestamp is not None:
-            expires_at = datetime.fromtimestamp(exp_timestamp)
-            await crud_token_blacklist.create(db, token=token, expires_at=expires_at)
-
-
-async def blacklist_token(token: str, db: AsyncSession) -> None:
-    """Blacklist a single token.
-
-    Parameters
-    ----------
-    token: str
-        The token to blacklist
-    db: AsyncSession
-        Database session for performing database operations.
-    """
-    # Import here to avoid circular import
-    from app.crud import crud_token_blacklist
-
-    payload = jwt.decode(token, SECRET_KEY.get_secret_value(), algorithms=[ALGORITHM])
-    exp_timestamp = payload.get("exp")
-    if exp_timestamp is not None:
-        expires_at = datetime.fromtimestamp(exp_timestamp)
-        await crud_token_blacklist.create(db, token=token, expires_at=expires_at)

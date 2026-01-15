@@ -230,7 +230,7 @@ export class LoginService {
 
   /**
    * Logout
-   * Logout user and blacklist tokens.
+   * Logout user.
    * @param data The data for the request.
    * @param data.refreshToken
    * @returns string Successful Response

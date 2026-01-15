@@ -15,8 +15,6 @@ async def test_password_hashing():
 
 @pytest.mark.asyncio
 async def test_token_creation_and_verify(db, mock_redis):
-    # Mock redis because verify_token checks blacklist which uses redis/db
-    # actually blacklist check is in DB (crud_token_blacklist)
     # verify_token(token, type, db)
 
     data = {"sub": "test@example.com", "token_type": "access"}

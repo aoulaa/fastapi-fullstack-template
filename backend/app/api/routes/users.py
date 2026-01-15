@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from app.api.deps import CurrentUser, SessionDep, SuperUserDep
 from app.core.exceptions import DuplicateValueException, ForbiddenException, NotFoundException
-from app.core.security import blacklist_token, get_password_hash, oauth2_scheme, verify_password
+from app.core.security import get_password_hash, oauth2_scheme, verify_password
 from app.crud import crud_users
 from app.schemas.users import UpdatePassword, UserCreate, UserRead, UserUpdate
 
@@ -136,7 +136,6 @@ async def delete_user_me(
         )
 
     await crud_users.delete(db=db, id=current_user.id)
-    await blacklist_token(token=token, db=db)
     return {"message": "User deleted successfully"}
 
 
@@ -201,7 +200,6 @@ async def erase_user(
         raise ForbiddenException()
 
     await crud_users.delete(db=db, id=user_id)
-    await blacklist_token(token=token, db=db)
     return {"message": "User deleted"}
 
 
@@ -218,5 +216,4 @@ async def erase_db_user(
         raise NotFoundException("User not found")
 
     await crud_users.db_delete(db=db, username=username)
-    await blacklist_token(token=token, db=db)
     return {"message": "User deleted from the database"}
