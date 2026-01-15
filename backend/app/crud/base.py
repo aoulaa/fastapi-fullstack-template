@@ -1,8 +1,10 @@
+from collections.abc import Sequence
 from datetime import UTC, datetime
 from typing import Any, Generic, TypeVar
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.sql import Select
 
 from app.models.base import BaseModel
 
@@ -65,9 +67,23 @@ class BaseCRUD(Generic[ModelType]):
         """
         self.model = model
 
+    def _build_query(
+        self,
+        options: Sequence[Any] | None = None,
+        **kwargs: Any,
+    ) -> Select[tuple[ModelType]]:
+        """Build the base query with optional loading options and filters."""
+        query = select(self.model)
+        if options:
+            query = query.options(*options)
+        for field, value in kwargs.items():
+            query = query.where(getattr(self.model, field) == value)
+        return query
+
     async def get(
         self,
         db: AsyncSession,
+        options: Sequence[Any] | None = None,
         **kwargs: Any,
     ) -> ModelType | None:
         """Fetch a single record by any field.
@@ -76,6 +92,8 @@ class BaseCRUD(Generic[ModelType]):
         ----------
         db : AsyncSession
             The database session.
+        options : Sequence[Any] | None, default=None
+            SQLAlchemy loading options (e.g., selectinload).
         **kwargs : Any
             Field-value pairs to filter by (e.g., email="user@example.com").
 
@@ -86,13 +104,11 @@ class BaseCRUD(Generic[ModelType]):
 
         Examples
         --------
-        >>> user = await crud.get(db, email="user@example.com")
+        >>> from sqlalchemy.orm import selectinload
+        >>> user = await crud.get(db, email="user@example.com", options=[selectinload(User.items)])
         >>> user = await crud.get(db, username="john", is_deleted=False)
         """
-        query = select(self.model)
-        for field, value in kwargs.items():
-            query = query.where(getattr(self.model, field) == value)
-
+        query = self._build_query(options=options, **kwargs)
         result = await db.execute(query)
         return result.scalar_one_or_none()
 
@@ -101,6 +117,7 @@ class BaseCRUD(Generic[ModelType]):
         db: AsyncSession,
         offset: int = 0,
         limit: int = 100,
+        options: Sequence[Any] | None = None,
         **kwargs: Any,
     ) -> dict[str, Any]:
         """Fetch multiple records with pagination.
@@ -113,6 +130,8 @@ class BaseCRUD(Generic[ModelType]):
             Number of records to skip.
         limit : int, default=100
             Maximum number of records to return.
+        options : Sequence[Any] | None, default=None
+            SQLAlchemy loading options (e.g., selectinload).
         **kwargs : Any
             Field-value pairs to filter by.
 
@@ -123,23 +142,24 @@ class BaseCRUD(Generic[ModelType]):
 
         Examples
         --------
-        >>> result = await crud.get_multi(db, offset=0, limit=10, is_deleted=False)
+        >>> from sqlalchemy.orm import selectinload
+        >>> result = await crud.get_multi(db, offset=0, limit=10, options=[selectinload(User.items)])
         >>> users = result['data']
         >>> total = result['total_count']
         """
-        # Build the base query
-        query = select(self.model)
-        for field, value in kwargs.items():
-            query = query.where(getattr(self.model, field) == value)
+        # Build the filtered query (without options for count)
+        query = self._build_query(**kwargs)
 
         # Get total count
         count_query = select(func.count()).select_from(query.subquery())
         total_result = await db.execute(count_query)
         total_count = total_result.scalar_one()
 
-        # Get paginated data
-        query = query.offset(offset).limit(limit)
-        result = await db.execute(query)
+        # Get paginated data with options
+        data_query = query.offset(offset).limit(limit)
+        if options:
+            data_query = data_query.options(*options)
+        result = await db.execute(data_query)
         data = result.scalars().all()
 
         return {"data": data, "total_count": total_count}
@@ -167,9 +187,7 @@ class BaseCRUD(Generic[ModelType]):
         --------
         >>> exists = await crud.exists(db, email="user@example.com")
         """
-        query = select(self.model)
-        for field, value in kwargs.items():
-            query = query.where(getattr(self.model, field) == value)
+        query = self._build_query(**kwargs)
 
         count_query = select(func.count()).select_from(query.subquery())
         result = await db.execute(count_query)
@@ -195,9 +213,7 @@ class BaseCRUD(Generic[ModelType]):
         int
             Number of matching records.
         """
-        query = select(self.model)
-        for field, value in kwargs.items():
-            query = query.where(getattr(self.model, field) == value)
+        query = self._build_query(**kwargs)
 
         count_query = select(func.count()).select_from(query.subquery())
         result = await db.execute(count_query)
