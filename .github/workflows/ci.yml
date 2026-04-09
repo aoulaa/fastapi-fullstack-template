@@ -18,7 +18,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: "**/uv.lock"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -39,7 +39,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: "**/uv.lock"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -63,7 +63,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: "**/uv.lock"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -78,33 +78,22 @@ jobs:
 
   frontend-e2e:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: changethis
+          POSTGRES_DB: appdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
-
-      - name: Create .env file
-        run: |
-          cat > .env << 'EOF'
-          POSTGRES_SERVER=localhost
-          POSTGRES_PORT=5432
-          POSTGRES_DB=appdb
-          POSTGRES_USER=postgres
-          POSTGRES_PASSWORD=changethis
-          REDIS_HOST=localhost
-          REDIS_PORT=6379
-          SECRET_KEY=test-secret-key-for-ci-only
-          ENVIRONMENT=local
-          ADMIN_NAME=admin
-          ADMIN_EMAIL=admin@example.com
-          ADMIN_USERNAME=admin
-          ADMIN_PASSWORD=Change-me2
-          CORS_ORIGINS=["http://localhost:5173","http://localhost:8000"]
-          VITE_API_URL=http://localhost:8000
-          ENABLE_REDIS_QUEUE=false
-          ENABLE_REDIS_RATE_LIMIT=false
-          EOF
-
-      - name: Start database
-        run: docker compose -f docker-compose.local.yml up -d db
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -117,14 +106,14 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: "backend/uv.lock"
+          cache-dependency-glob: "**/uv.lock"
 
       - name: Start backend (background)
+        # DB is already healthy via service container health-check — no sleep needed
         run: |
           (
             cd backend
             uv sync --frozen
-            sleep 5
             uv run alembic upgrade head
             uv run python -m app.commands.create_first_superuser
             uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
@@ -169,15 +158,8 @@ jobs:
         working-directory: frontend
         run: npx playwright install-deps chromium
 
-      - name: Build frontend
-        working-directory: frontend
-        run: npm run build
-        env:
-          VITE_API_URL: http://localhost:8000
-
       - name: Wait for backend
         run: |
-          echo "Waiting for backend..."
           timeout 120 bash -c 'until curl -sf http://localhost:8000/api/v1/health; do sleep 2; done' || {
             echo "Backend health check failed"
             exit 1
@@ -198,7 +180,3 @@ jobs:
           name: playwright-report
           path: frontend/playwright-report/
           retention-days: 7
-
-      - name: Stop database
-        if: always()
-        run: docker compose -f docker-compose.local.yml down
