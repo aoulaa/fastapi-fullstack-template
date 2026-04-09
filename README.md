@@ -1,4 +1,4 @@
-# 🚀 FastAPI Fullstack Boilerplate (beta)
+# 🚀 FastAPI Fullstack Boilerplate
 
 A **lean, modern full-stack boilerplate** for building real products fast — without overengineering or heavy infrastructure.
 
