@@ -8,3 +8,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username_or_email: str
+    token_version: int = 0

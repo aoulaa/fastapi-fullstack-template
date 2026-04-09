@@ -7,7 +7,7 @@ import AddUser from "@/components/Admin/AddUser"
 import { columns, type UserTableData } from "@/components/Admin/columns"
 import { DataTable } from "@/components/Common/DataTable"
 import PendingUsers from "@/components/Pending/PendingUsers"
-import useAuth from "@/hooks/useAuth"
+import useCurrentUser from "@/hooks/useCurrentUser"
 
 function getUsersQueryOptions() {
   return {
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/_layout/admin")({
 })
 
 function UsersTableContent() {
-  const { user: currentUser } = useAuth()
+  const { currentUser } = useCurrentUser()
   const { data: users } = useSuspenseQuery(getUsersQueryOptions())
 
   const tableData: UserTableData[] = users.data.map((user: UserRead) => ({

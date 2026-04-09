@@ -8,7 +8,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar"
-import useAuth from "@/hooks/useAuth"
+import useCurrentUser from "@/hooks/useCurrentUser"
 import { type Item, Main } from "./Main"
 import { User } from "./User"
 
@@ -18,7 +18,7 @@ const baseItems: Item[] = [
 ]
 
 export function AppSidebar() {
-  const { user: currentUser } = useAuth()
+  const { currentUser } = useCurrentUser()
 
   const items = currentUser?.is_superuser
     ? [...baseItems, { icon: Users, title: "Admin", path: "/admin" }]

@@ -15,6 +15,7 @@ from fastapi.openapi.utils import get_openapi
 from sqlalchemy import text
 
 from app.api.deps import get_current_superuser
+from app.core.middleware import RequestLoggingMiddleware
 from app.core.utils.rate_limit import rate_limiter
 from app.models import *  # noqa: F403
 
@@ -29,7 +30,7 @@ from .config import (
     settings,
 )
 from .db import async_engine as engine
-from .utils import cache, queue
+from .utils import queue
 
 
 # -------------- database --------------
@@ -73,9 +74,7 @@ async def check_redis_connection() -> None:
     max_retries = 5
     retry_delay = 2
 
-    checks = []
-    if cache.client is not None:
-        checks.append(("Cache", cache.client))
+    checks: list[tuple[str, Any]] = []
     if queue.pool is not None:
         checks.append(("Queue", queue.pool))
     if rate_limiter.client is not None:
@@ -227,6 +226,7 @@ def create_application(
 
     application = FastAPI(lifespan=lifespan, **kwargs)
     application.include_router(router)
+    application.add_middleware(RequestLoggingMiddleware)
 
     if isinstance(settings, CORSSettings):
         application.add_middleware(

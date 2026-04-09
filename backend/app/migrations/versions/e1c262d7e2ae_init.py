@@ -1,8 +1,8 @@
-"""Initial migration without token blacklist
+"""init
 
-Revision ID: 0d5161899d69
+Revision ID: e1c262d7e2ae
 Revises:
-Create Date: 2026-01-15 14:39:40.748012
+Create Date: 2026-04-10 00:33:52.769774
 
 """
 
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "0d5161899d69"
+revision: str = "e1c262d7e2ae"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -30,6 +30,7 @@ def upgrade() -> None:
         sa.Column("profile_image_url", sa.String(), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
         sa.Column("is_superuser", sa.Boolean(), nullable=False),
+        sa.Column("token_version", sa.Integer(), server_default="0", nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column(
             "created_at", sa.DateTime(timezone=True), server_default=sa.text("current_timestamp(0)"), nullable=False

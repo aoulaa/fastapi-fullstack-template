@@ -38,12 +38,14 @@ nvm use
 ```bash
 npm install
 ```
+*(Or use `make frontend-install` from the project root)*
 
 * And start the live server with the following `npm` script:
 
 ```bash
 npm run dev
 ```
+*(Or use `make run-frontend` from the project root)*
 
 * Then open your browser at http://localhost:5173/.
 
@@ -76,14 +78,13 @@ But it would be only to clean them up, leaving them won't really have any effect
 
 ### Automatically
 
-* Activate the backend virtual environment.
-* From the top level project directory, run the script:
+From the top level project directory, run:
 
 ```bash
-./scripts/generate-client.sh
+make frontend-gen
 ```
 
-* Commit the changes.
+*(This runs the `scripts/generate-client.sh` script which handles everything)*
 
 ### Manually
 
@@ -130,17 +131,21 @@ The frontend includes initial end-to-end tests using Playwright. To run the test
 docker compose up -d --wait backend
 ```
 
-Then, you can run the tests with the following command:
+Then, you can run the tests with:
 
 ```bash
-npx playwright test
+make frontend-test
 ```
 
-You can also run your tests in UI mode to see the browser and interact with it running:
+*(Or `npx playwright test` inside the `frontend` directory)*
+
+You can also run your tests in UI mode:
 
 ```bash
-npx playwright test --ui
+make frontend-test-ui
 ```
+
+*(Or `npx playwright test --ui` inside the `frontend` directory)*
 
 To stop and remove the Docker Compose stack and clean the data created in tests, use the following command:
 

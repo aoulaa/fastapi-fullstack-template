@@ -112,7 +112,8 @@ async def test_delete_user_me(client: AsyncClient, db):
 
     # Verify user is gone
     # Verify user is marked deleted
-    user_in_db = await crud_users.get(db, id=user_id)
+    # Pass is_deleted=True to bypass the default exclude_deleted filter
+    user_in_db = await crud_users.get(db, id=user_id, is_deleted=True)
     assert user_in_db is not None
     assert user_in_db.is_deleted is True
     assert user_in_db.deleted_at is not None

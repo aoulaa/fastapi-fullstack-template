@@ -19,8 +19,8 @@ import type {
   LoginAccessTokenData,
   LoginAccessTokenResponse,
   RefreshAccessTokenResponse,
-  LogoutApiV1LogoutPostData,
-  LogoutApiV1LogoutPostResponse,
+  LogoutData,
+  LogoutResponse,
   CreateTaskApiV1TasksTaskPostData,
   CreateTaskApiV1TasksTaskPostResponse,
   GetTaskApiV1TasksTaskTaskIdGetData,
@@ -61,7 +61,7 @@ export class HealthService {
 
   /**
    * Ready
-   * Readiness check to verify external dependencies (DB, Redis) are available.
+   * Readiness check to verify external dependencies (DB) are available.
    * @returns ReadyCheck Successful Response
    * @throws ApiError
    */
@@ -230,15 +230,15 @@ export class LoginService {
 
   /**
    * Logout
-   * Logout user.
+   * Logout user and invalidate all outstanding tokens.
    * @param data The data for the request.
    * @param data.refreshToken
    * @returns string Successful Response
    * @throws ApiError
    */
-  public static logoutApiV1LogoutPost(
-    data: LogoutApiV1LogoutPostData = {},
-  ): CancelablePromise<LogoutApiV1LogoutPostResponse> {
+  public static logout(
+    data: LogoutData = {},
+  ): CancelablePromise<LogoutResponse> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/logout",

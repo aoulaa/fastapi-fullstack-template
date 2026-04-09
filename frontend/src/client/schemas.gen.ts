@@ -294,10 +294,6 @@ export const ReadyCheckSchema = {
       type: "string",
       title: "Database",
     },
-    redis: {
-      type: "string",
-      title: "Redis",
-    },
     timestamp: {
       type: "string",
       title: "Timestamp",
@@ -310,7 +306,6 @@ export const ReadyCheckSchema = {
     "version",
     "app",
     "database",
-    "redis",
     "timestamp",
   ],
   title: "ReadyCheck",
@@ -340,7 +335,6 @@ export const UpdatePasswordSchema = {
     },
     new_password: {
       type: "string",
-      minLength: 8,
       title: "New Password",
     },
   },
@@ -388,7 +382,6 @@ export const UserCreateSchema = {
     },
     password: {
       type: "string",
-      pattern: "^.{8,}|[0-9]+|[A-Z]+|[a-z]+|[^a-zA-Z0-9]+$",
       title: "Password",
       examples: ["Str1ngst!"],
     },
@@ -534,7 +527,6 @@ export const UserUpdateSchema = {
       anyOf: [
         {
           type: "string",
-          minLength: 8,
         },
         {
           type: "null",

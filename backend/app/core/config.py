@@ -38,6 +38,8 @@ class DatabaseSettings(BaseSettings):
     POSTGRES_SYNC_PREFIX: str = "postgresql://"
     POSTGRES_ASYNC_PREFIX: str = "postgresql+asyncpg://"
     POSTGRES_URL: str | None = None
+    DB_POOL_SIZE: int = 10
+    DB_MAX_OVERFLOW: int = 20
 
     @computed_field  # type: ignore[prop-decorator]
     @property

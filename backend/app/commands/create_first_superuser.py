@@ -5,7 +5,7 @@ from sqlalchemy import select
 
 from app.core.config import settings
 from app.core.db import AsyncSession, local_session
-from app.core.security import get_password_hash
+from app.core.security import get_password_hash, verify_password
 from app.models.user import User
 
 logging.basicConfig(level=logging.INFO)
@@ -36,7 +36,14 @@ async def create_first_user(session: AsyncSession) -> None:
             await session.commit()
             logger.info(f"Admin user {username} created successfully.")
         else:
-            logger.info(f"Admin user {username} already exists.")
+            # Update password if it changed in the environment
+            if not await verify_password(settings.ADMIN_PASSWORD, user.hashed_password):
+                user.hashed_password = hashed_password
+                session.add(user)
+                await session.commit()
+                logger.info(f"Admin user {username} password updated.")
+            else:
+                logger.info(f"Admin user {username} already exists, no changes needed.")
 
     except Exception as e:
         await session.rollback()

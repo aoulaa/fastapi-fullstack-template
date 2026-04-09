@@ -1,12 +1,11 @@
 import re
-from typing import Annotated
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Query, Request
 from pydantic import BaseModel
 
 from app.api.deps import CurrentUser, SessionDep, SuperUserDep
 from app.core.exceptions import DuplicateValueException, ForbiddenException, NotFoundException
-from app.core.security import get_password_hash, oauth2_scheme, verify_password
+from app.core.security import get_password_hash, verify_password
 from app.crud import crud_users
 from app.schemas.users import UpdatePassword, UserCreate, UserRead, UserUpdate
 
@@ -51,15 +50,14 @@ async def write_user(
 @router.get("/", response_model=PaginatedResponse, operation_id="read_users")
 async def read_users(
     db: SessionDep,
-    skip: int = 0,
-    limit: int = 10,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=10, ge=1, le=100),
 ) -> PaginatedResponse:
     """Retrieve users with pagination."""
     result = await crud_users.get_multi(
         db=db,
         offset=skip,
         limit=limit,
-        is_deleted=False,
     )
 
     users = result["data"]
@@ -127,7 +125,6 @@ async def update_password_me(
 async def delete_user_me(
     current_user: CurrentUser,
     db: SessionDep,
-    token: Annotated[str, Depends(oauth2_scheme)],
 ) -> dict[str, str]:
     """Delete own user account."""
     if current_user.is_superuser:
@@ -145,7 +142,7 @@ async def read_user_by_id(
     db: SessionDep,
 ) -> UserRead:
     """Get a specific user by ID."""
-    db_user = await crud_users.get(db=db, id=user_id, is_deleted=False)
+    db_user = await crud_users.get(db=db, id=user_id)
     if db_user is None:
         raise NotFoundException("User not found")
 
@@ -189,7 +186,6 @@ async def erase_user(
     user_id: int,
     current_user: CurrentUser,
     db: SessionDep,
-    token: Annotated[str, Depends(oauth2_scheme)],
 ) -> dict[str, str]:
     """Delete a user profile (Self or Superuser)."""
     db_user = await crud_users.get(db=db, id=user_id)
@@ -208,7 +204,6 @@ async def erase_db_user(
     username: str,
     current_user: SuperUserDep,
     db: SessionDep,
-    token: Annotated[str, Depends(oauth2_scheme)],
 ) -> dict[str, str]:
     """Permanently delete a user from the database (Superuser only)."""
     user_exists = await crud_users.exists(db=db, username=username)

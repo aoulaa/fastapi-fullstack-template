@@ -27,7 +27,6 @@ from sqlalchemy.schema import CreateColumn
 
 from app.core.db import Base, async_get_db
 from app.core.security import create_access_token
-from app.core.utils.cache import async_get_redis
 from app.main import app
 
 # --- SQLite Compatibility Fixes ---
@@ -86,7 +85,6 @@ async def db(db_engine) -> AsyncGenerator[AsyncSession, None]:
 @pytest_asyncio.fixture(scope="function")
 async def client(db: AsyncSession, mock_redis: AsyncMock) -> AsyncGenerator[AsyncClient, None]:
     app.dependency_overrides[async_get_db] = lambda: db
-    app.dependency_overrides[async_get_redis] = lambda: mock_redis
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         yield ac
     app.dependency_overrides.clear()
@@ -96,15 +94,8 @@ async def client(db: AsyncSession, mock_redis: AsyncMock) -> AsyncGenerator[Asyn
 async def mock_redis():
     """Mock Redis client globally for all tests."""
     mock_redis_client = AsyncMock()
-    mock_redis_client.get.return_value = None
-    mock_redis_client.set.return_value = True
-    mock_redis_client.delete.return_value = True
-    mock_redis_client.scan.return_value = (0, [])
 
-    with (
-        patch("app.core.utils.cache.client", mock_redis_client),
-        patch("app.core.utils.rate_limit.rate_limiter.client", mock_redis_client),
-    ):
+    with patch("app.core.utils.rate_limit.rate_limiter.client", mock_redis_client):
         yield mock_redis_client
 
 

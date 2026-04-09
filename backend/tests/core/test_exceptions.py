@@ -2,11 +2,8 @@ from fastapi import status
 
 from app.core.exceptions import (
     BadRequestException,
-    CacheIdentificationInferenceError,
     DuplicateValueException,
     ForbiddenException,
-    InvalidRequestError,
-    MissingClientError,
     NotFoundException,
     RateLimitException,
     UnauthorizedException,
@@ -60,14 +57,3 @@ def test_rate_limit_exception():
 def test_custom_exception_messages():
     exc = BadRequestException(detail="Custom Error")
     assert exc.detail == "Custom Error"
-
-
-def test_cache_exceptions():
-    exc = CacheIdentificationInferenceError()
-    assert str(exc) == "Could not infer id for resource being cached."
-
-    exc = InvalidRequestError()
-    assert str(exc) == "Type of request not supported."
-
-    exc = MissingClientError()
-    assert str(exc) == "Client is None."

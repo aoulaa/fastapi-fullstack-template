@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
 
 from app.api.deps import CurrentUser, SessionDep
 from app.crud.items import crud_items
@@ -14,20 +14,18 @@ router = APIRouter(prefix="/items", tags=["items"])
 async def read_items(
     session: SessionDep,
     current_user: CurrentUser,
-    skip: int = 0,
-    limit: int = 100,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=50, ge=1, le=100),
 ) -> Any:
     """
     Retrieve items.
     """
     if current_user.is_superuser:
         # Superusers can see all items
-        result = await crud_items.get_multi(db=session, offset=skip, limit=limit, is_deleted=False)
+        result = await crud_items.get_multi(db=session, offset=skip, limit=limit)
     else:
         # Regular users can only see their own items
-        result = await crud_items.get_multi(
-            db=session, offset=skip, limit=limit, owner_id=current_user.id, is_deleted=False
-        )
+        result = await crud_items.get_multi(db=session, offset=skip, limit=limit, owner_id=current_user.id)
 
     # Convert SQLAlchemy models to Pydantic models
     items_data = [ItemPublic.model_validate(item) for item in result["data"]]
@@ -43,7 +41,7 @@ async def read_item(
     """
     Get item by ID.
     """
-    item = await crud_items.get(db=session, id=id, is_deleted=False)
+    item = await crud_items.get(db=session, id=id)
     if not item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
 
@@ -78,7 +76,7 @@ async def update_item(
     """
     Update an item.
     """
-    item = await crud_items.get(db=session, id=id, is_deleted=False)
+    item = await crud_items.get(db=session, id=id)
     if not item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
 
@@ -98,7 +96,7 @@ async def delete_item(
     """
     Delete an item.
     """
-    item = await crud_items.get(db=session, id=id, is_deleted=False)
+    item = await crud_items.get(db=session, id=id)
     if not item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
 

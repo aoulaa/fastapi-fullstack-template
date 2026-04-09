@@ -8,6 +8,7 @@ from pydantic import (
     ConfigDict,
     EmailStr,
     Field,
+    field_validator,
     model_validator,
 )
 
@@ -61,13 +62,33 @@ class UserRead(BaseModel):
     is_superuser: bool
 
 
+def validate_password_strength(v: str) -> str:
+    """Validate password has uppercase, lowercase, digit, and special character."""
+    if len(v) < 8:
+        raise ValueError("Password must be at least 8 characters")
+    if not any(c.islower() for c in v):
+        raise ValueError("Password must contain at least one lowercase letter")
+    if not any(c.isupper() for c in v):
+        raise ValueError("Password must contain at least one uppercase letter")
+    if not any(c.isdigit() for c in v):
+        raise ValueError("Password must contain at least one digit")
+    if not any(not c.isalnum() for c in v):
+        raise ValueError("Password must contain at least one special character")
+    return v
+
+
 class UserCreate(UserBase):
     model_config = ConfigDict(extra="ignore", populate_by_name=True)
 
-    password: Annotated[str, Field(pattern=r"^.{8,}|[0-9]+|[A-Z]+|[a-z]+|[^a-zA-Z0-9]+$", examples=["Str1ngst!"])]
+    password: Annotated[str, Field(examples=["Str1ngst!"])]
     confirm_password: str | None = Field(default=None, exclude=True)
     is_superuser: bool = False
     is_active: bool = True
+
+    @field_validator("password")
+    @classmethod
+    def password_strength(cls, v: str) -> str:
+        return validate_password_strength(v)
 
     @model_validator(mode="after")
     def verify_password_match(self) -> Self:
@@ -104,10 +125,17 @@ class UserUpdate(BaseModel):
             pattern=r"^(https?|ftp)://[^\s/$.?#].[^\s]*$", examples=["https://www.profileimageurl.com"], default=None
         ),
     ]
-    password: str | None = Field(default=None, min_length=8)
+    password: str | None = Field(default=None)
     confirm_password: str | None = Field(default=None, exclude=True)
     is_active: bool | None = None
     is_superuser: bool | None = None
+
+    @field_validator("password")
+    @classmethod
+    def password_strength(cls, v: str | None) -> str | None:
+        if v is not None:
+            return validate_password_strength(v)
+        return v
 
     @model_validator(mode="after")
     def verify_password_match(self) -> Self:
@@ -134,4 +162,9 @@ class UserRestoreDeleted(BaseModel):
 
 class UpdatePassword(BaseModel):
     current_password: str
-    new_password: str = Field(min_length=8)
+    new_password: str
+
+    @field_validator("new_password")
+    @classmethod
+    def new_password_strength(cls, v: str) -> str:
+        return validate_password_strength(v)

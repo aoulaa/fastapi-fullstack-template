@@ -78,11 +78,12 @@ async def verify_token(token: str, expected_token_type: TokenType, db: AsyncSess
         payload = jwt.decode(token, SECRET_KEY.get_secret_value(), algorithms=[ALGORITHM])
         username_or_email: str | None = payload.get("sub")
         token_type: str | None = payload.get("token_type")
+        token_version: int = payload.get("token_version", 0)
 
         if username_or_email is None or token_type != expected_token_type:
             return None
 
-        return TokenData(username_or_email=username_or_email)
+        return TokenData(username_or_email=username_or_email, token_version=token_version)
 
     except jwt.PyJWTError:
         return None

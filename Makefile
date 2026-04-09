@@ -23,7 +23,7 @@ install: ## Install dependencies using uv
 	uv --project backend sync
 
 .PHONY: run
-run: ## Run the FastAPI application locally with reload
+run-backend: ## Run the FastAPI application locally with reload
 	uv --project backend run uvicorn app.main:app --reload
 
 .PHONY: worker
@@ -34,28 +34,42 @@ worker: ## Run the ARQ background worker
 test: ## Run tests using pytest
 	uv --project backend run pytest
 
-.PHONY: test-frontend
-test-frontend: ## Run frontend Playwright tests
+
+# Frontend
+.PHONY: run-frontend
+run-frontend: ## Run frontend development server
+	cd frontend && npm run dev
+
+.PHONY: frontend-install
+frontend-install: ## Install frontend dependencies
+	cd frontend && npm install
+
+.PHONY: frontend-build
+frontend-build: ## Build frontend for production
+	cd frontend && npm run build
+
+.PHONY: frontend-test
+frontend-test: ## Run frontend Playwright tests
 	cd frontend && npx playwright test
 
-.PHONY: test-frontend-ui
-test-frontend-ui: ## Run frontend tests with Playwright UI
+.PHONY: frontend-test-ui
+frontend-test-ui: ## Run frontend tests with Playwright UI
 	cd frontend && npx playwright test --ui
 
-.PHONY: test-frontend-headed
-test-frontend-headed: ## Run frontend tests with visible browser
-	cd frontend && npx playwright test --headed
+.PHONY: frontend-lint
+frontend-lint: ## Run frontend linting checks
+	cd frontend && npm run lint
 
-.PHONY: test-frontend-debug
-test-frontend-debug: ## Run frontend tests in debug mode
-	cd frontend && npx playwright test --debug
+.PHONY: frontend-gen
+frontend-gen: ## Generate frontend client from OpenAPI spec
+	./scripts/generate-client.sh
 
 .PHONY: test-all
 test-all: ## Run all tests (backend + frontend)
 	@echo "Running backend tests..."
 	@make test
 	@echo "\nRunning frontend tests..."
-	@make test-frontend
+	@make frontend-test
 
 .PHONY: lint
 lint: ## Run linting checks (ruff and mypy)
@@ -103,7 +117,3 @@ clean: ## Clean up temporary files
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
 	find . -type d -name ".mypy_cache" -exec rm -rf {} +
 	find . -type d -name ".ruff_cache" -exec rm -rf {} +
-
-.PHONY: generate-client
-generate-client: ## Generate the frontend client from the backend OpenAPI spec
-	./scripts/generate-client.sh

@@ -83,83 +83,122 @@ jobs:
 
       - name: Create .env file
         run: |
-          cat > .env << EOF
-          # Database
+          cat > .env << 'EOF'
           POSTGRES_SERVER=localhost
           POSTGRES_PORT=5432
-          POSTGRES_DB=fastnew
+          POSTGRES_DB=appdb
           POSTGRES_USER=postgres
           POSTGRES_PASSWORD=changethis
-
-          # Redis
           REDIS_HOST=localhost
           REDIS_PORT=6379
-
-          # Backend
           SECRET_KEY=test-secret-key-for-ci-only
           ENVIRONMENT=local
-
-          # Admin credentials
           ADMIN_NAME=admin
           ADMIN_EMAIL=admin@example.com
           ADMIN_USERNAME=admin
           ADMIN_PASSWORD=Change-me2
-
-          # CORS
-          CORS_ORIGINS=["http://localhost:3000", "http://localhost:8000", "http://localhost:5173"]
-
-          # Frontend
+          CORS_ORIGINS=["http://localhost:5173","http://localhost:8000"]
           VITE_API_URL=http://localhost:8000
-
-          # Logs (prevent permission issues in CI)
-          LOG_DIR=/tmp
+          ENABLE_REDIS_QUEUE=false
+          ENABLE_REDIS_RATE_LIMIT=false
           EOF
 
-      - name: Start backend services
-        run: docker compose -f docker-compose.local.yml up -d
+      - name: Start database
+        run: docker compose -f docker-compose.local.yml up -d db
 
-      - name: Wait for backend to be ready
-        run: |
-          echo "Waiting for backend health check..."
-          timeout 120 bash -c 'until curl -f http://localhost:8000/api/v1/health; do sleep 2; done' || {
-            echo "Health check failed! Showing container status and logs..."
-            docker ps -a
-            echo "=== API Container Logs ==="
-            docker compose -f docker-compose.local.yml logs api
-            echo "=== Worker Container Logs ==="
-            docker compose -f docker-compose.local.yml logs worker
-            echo "=== Database Container Logs ==="
-            docker compose -f docker-compose.local.yml logs db
-            echo "=== Redis Container Logs ==="
-            docker compose -f docker-compose.local.yml logs redis
-            exit 1
-          }
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-working-directory: "frontend"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
+          cache-dependency-glob: "backend/uv.lock"
 
-      - name: Build Playwright test image
+      - name: Start backend (background)
         run: |
-          docker build -t playwright-tests -f frontend/Dockerfile.playwright ./frontend
+          (
+            cd backend
+            uv sync --frozen
+            sleep 5
+            uv run alembic upgrade head
+            uv run python -m app.commands.create_first_superuser
+            uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+          ) &
+        env:
+          ENVIRONMENT: local
+          POSTGRES_SERVER: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: appdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: changethis
+          ENABLE_REDIS_QUEUE: "false"
+          ENABLE_REDIS_RATE_LIMIT: "false"
+          SECRET_KEY: test-secret-key-for-ci-only
+          ADMIN_EMAIL: admin@example.com
+          ADMIN_USERNAME: admin
+          ADMIN_PASSWORD: Change-me2
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Get Playwright version
+        id: playwright-version
+        working-directory: frontend
+        run: echo "version=$(npm list @playwright/test --depth=0 | grep @playwright/test | awk -F@ '{print $NF}')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright browsers and deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps only
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: frontend
+        run: npx playwright install-deps chromium
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+        env:
+          VITE_API_URL: http://localhost:8000
+
+      - name: Wait for backend
+        run: |
+          echo "Waiting for backend..."
+          timeout 120 bash -c 'until curl -sf http://localhost:8000/api/v1/health; do sleep 2; done' || {
+            echo "Backend health check failed"
+            exit 1
+          }
 
       - name: Run Playwright tests
-        run: |
-          docker run --network="host" \
-            -e VITE_API_URL=http://localhost:8000 \
-            -e ADMIN_EMAIL=admin@example.com \
-            -e ADMIN_PASSWORD=Change-me2 \
-            playwright-tests npx playwright test --reporter=list
+        working-directory: frontend
+        run: npx playwright test
+        env:
+          VITE_API_URL: http://localhost:8000
+          ADMIN_EMAIL: admin@example.com
+          ADMIN_PASSWORD: Change-me2
 
-      - name: Upload test results
+      - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: frontend/test-results/
+          path: frontend/playwright-report/
           retention-days: 7
 
-      - name: Stop services
+      - name: Stop database
         if: always()
         run: docker compose -f docker-compose.local.yml down

@@ -1,6 +1,7 @@
 import { expect, type Page, test } from "@playwright/test"
 import { firstSuperuser, firstSuperuserPassword } from "./config.ts"
-import { randomPassword } from "./utils/random.ts"
+import { createUser } from "./utils/privateApi.ts"
+import { randomEmail, randomPassword } from "./utils/random.ts"
 
 test.use({ storageState: { cookies: [], origins: [] } })
 
@@ -43,13 +44,13 @@ test("Log in with valid email and password ", async ({ page }) => {
   ).toBeVisible()
 })
 
-test("Log in with invalid email", async ({ page }) => {
+test("Log in with empty username field", async ({ page }) => {
   await page.goto("/login")
 
-  await fillForm(page, "invalidemail", firstSuperuserPassword)
+  await fillForm(page, "", firstSuperuserPassword)
   await page.getByRole("button", { name: "Log In" }).click()
 
-  await expect(page.getByText("Invalid email address")).toBeVisible()
+  await expect(page.getByText("Username or email is required")).toBeVisible()
 })
 
 test("Log in with invalid password", async ({ page }) => {
@@ -65,13 +66,15 @@ test("Log in with invalid password", async ({ page }) => {
 // Log out
 
 test("Successful log out", async ({ page }) => {
+  // Use a fresh user so logout does not increment the shared admin's token_version
+  const email = randomEmail()
+  const password = randomPassword()
+  await createUser({ email, password })
+
   await page.goto("/login")
-
-  await fillForm(page, firstSuperuser, firstSuperuserPassword)
+  await fillForm(page, email, password)
   await page.getByRole("button", { name: "Log In" }).click()
-
   await page.waitForURL("/")
-
   await expect(
     page.getByText("Welcome back, nice to see you again!"),
   ).toBeVisible()
@@ -82,13 +85,15 @@ test("Successful log out", async ({ page }) => {
 })
 
 test("Logged-out user cannot access protected routes", async ({ page }) => {
+  // Use a fresh user so logout does not increment the shared admin's token_version
+  const email = randomEmail()
+  const password = randomPassword()
+  await createUser({ email, password })
+
   await page.goto("/login")
-
-  await fillForm(page, firstSuperuser, firstSuperuserPassword)
+  await fillForm(page, email, password)
   await page.getByRole("button", { name: "Log In" }).click()
-
   await page.waitForURL("/")
-
   await expect(
     page.getByText("Welcome back, nice to see you again!"),
   ).toBeVisible()
@@ -101,11 +106,7 @@ test("Logged-out user cannot access protected routes", async ({ page }) => {
   await page.waitForURL("/login")
 })
 
-test("Redirects to /login when token is wrong", async ({ page }) => {
-  await page.goto("/settings")
-  await page.evaluate(() => {
-    localStorage.setItem("access_token", "invalid_token")
-  })
+test("Redirects to /login when not authenticated", async ({ page }) => {
   await page.goto("/settings")
   await page.waitForURL("/login")
   await expect(page).toHaveURL("/login")

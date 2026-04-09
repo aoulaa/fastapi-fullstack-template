@@ -4,7 +4,12 @@ export const randomEmail = () =>
 export const randomTeamName = () =>
   `Team ${Math.random().toString(36).substring(7)}`
 
-export const randomPassword = () => `${Math.random().toString(36).substring(2)}`
+// Generates a password that satisfies backend requirements:
+// 8+ chars, uppercase, lowercase, digit, special character
+export const randomPassword = () => {
+  const lower = Math.random().toString(36).substring(2, 8)
+  return `${lower}A1!`
+}
 
 export const slugify = (text: string) =>
   text

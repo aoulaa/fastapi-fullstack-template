@@ -74,8 +74,8 @@ async def test_crud_delete(db):
     deleted = await crud_users.delete(db, id=user.id)
     assert deleted is True
 
-    # Check it is soft deleted
-    fetched_user = await crud_users.get(db, id=user.id)
+    # Check it is soft deleted (pass is_deleted=True to bypass the default exclude_deleted filter)
+    fetched_user = await crud_users.get(db, id=user.id, is_deleted=True)
     assert fetched_user.is_deleted is True
     assert fetched_user.deleted_at is not None
 

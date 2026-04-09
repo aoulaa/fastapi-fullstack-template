@@ -1,30 +1,28 @@
 from typing import Annotated
 
-import jwt
-from fastapi import APIRouter, Cookie, Depends, Response
+from fastapi import APIRouter, Cookie, Response
 
-from app.api.deps import SessionDep
+from app.api.deps import CurrentUser, SessionDep
 from app.core.exceptions import UnauthorizedException
-from app.core.security import oauth2_scheme
+from app.crud import crud_users
 
 router = APIRouter(tags=["login"])
 
 
-@router.post("/logout")
+@router.post("/logout", operation_id="logout")
 async def logout(
     response: Response,
     db: SessionDep,
-    access_token: Annotated[str, Depends(oauth2_scheme)],
+    current_user: CurrentUser,
     refresh_token: Annotated[str | None, Cookie(alias="refresh_token")] = None,
 ) -> dict[str, str]:
-    """Logout user."""
-    try:
-        if not refresh_token:
-            raise UnauthorizedException("Refresh token not found")
+    """Logout user and invalidate all outstanding tokens."""
+    if not refresh_token:
+        raise UnauthorizedException("Refresh token not found")
 
-        response.delete_cookie(key="refresh_token")
+    # Incrementing token_version makes all currently issued tokens invalid
+    await crud_users.increment_token_version(db=db, user=current_user)
+    response.delete_cookie(key="access_token")
+    response.delete_cookie(key="refresh_token")
 
-        return {"message": "Logged out successfully"}
-
-    except jwt.PyJWTError:
-        raise UnauthorizedException("Invalid token.")
+    return {"message": "Logged out successfully"}

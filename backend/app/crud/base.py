@@ -57,6 +57,10 @@ class BaseCRUD(Generic[ModelType]):
     >>> crud_users = CRUDUser(User)
     """
 
+    exclude_deleted: bool = True
+    """When True, automatically filters out soft-deleted records (is_deleted=False).
+    Override at the class level or pass is_deleted explicitly to bypass."""
+
     def __init__(self, model: type[ModelType]):
         """Initialize the CRUD instance with a model.
 
@@ -72,10 +76,18 @@ class BaseCRUD(Generic[ModelType]):
         options: Sequence[Any] | None = None,
         **kwargs: Any,
     ) -> Select[tuple[ModelType]]:
-        """Build the base query with optional loading options and filters."""
+        """Build the base query with optional loading options and filters.
+
+        If the model has soft-delete support (is_deleted field) and
+        exclude_deleted is True, automatically filters out deleted records
+        unless is_deleted is explicitly provided in kwargs.
+        """
         query = select(self.model)
         if options:
             query = query.options(*options)
+        # Auto-apply soft delete filter when not explicitly overridden by caller
+        if self.exclude_deleted and hasattr(self.model, "is_deleted") and "is_deleted" not in kwargs:
+            query = query.where(getattr(self.model, "is_deleted") == False)  # noqa: E712
         for field, value in kwargs.items():
             query = query.where(getattr(self.model, field) == value)
         return query

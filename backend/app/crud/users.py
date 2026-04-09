@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -7,6 +8,8 @@ from app.models.user import User
 from app.schemas.users import UserCreate, UserUpdate
 
 from .base import BaseCRUD
+
+logger = logging.getLogger(__name__)
 
 
 class CRUDUser(BaseCRUD[User]):
@@ -163,9 +166,18 @@ class CRUDUser(BaseCRUD[User]):
             return None
 
         if not await verify_password(password, db_user.hashed_password):
+            logger.warning("Failed login attempt for: %s", username_or_email)
             return None
 
         return db_user
+
+    async def increment_token_version(self, db: AsyncSession, user: User) -> User:
+        """Increment the user's token_version, invalidating all previously issued tokens."""
+        user.token_version += 1
+        db.add(user)
+        await db.commit()
+        await db.refresh(user)
+        return user
 
 
 crud_users = CRUDUser(User)

@@ -66,7 +66,6 @@ export type ReadyCheck = {
   version: string
   app: string
   database: string
-  redis: string
   timestamp: string
 }
 
@@ -163,11 +162,11 @@ export type RefreshAccessTokenResponse = {
   [key: string]: string
 }
 
-export type LogoutApiV1LogoutPostData = {
+export type LogoutData = {
   refreshToken?: string | null
 }
 
-export type LogoutApiV1LogoutPostResponse = {
+export type LogoutResponse = {
   [key: string]: string
 }
 
