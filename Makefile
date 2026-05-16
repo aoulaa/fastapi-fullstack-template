@@ -16,23 +16,23 @@ setup: ## Run initial setup (install, env, migrations, pre-commit)
 
 .PHONY: install-hooks
 install-hooks: ## Install git hooks (pre-commit)
-	uv --project backend run pre-commit install
+	cd backend && uv run pre-commit install
 
 .PHONY: install
 install: ## Install dependencies using uv
-	uv --project backend sync
+	cd backend && uv sync
 
 .PHONY: run
 run-backend: ## Run the FastAPI application locally with reload
-	uv --project backend run uvicorn app.main:app --reload
+	cd backend && uv run uvicorn app.main:app --reload
 
 .PHONY: worker
 worker: ## Run the ARQ background worker
-	uv --project backend run arq $(WORKER_SETTINGS)
+	cd backend && uv run arq $(WORKER_SETTINGS)
 
 .PHONY: test
 test: ## Run tests using pytest
-	uv --project backend run pytest
+	cd backend && uv run pytest
 
 
 # Frontend
@@ -73,13 +73,13 @@ test-all: ## Run all tests (backend + frontend)
 
 .PHONY: lint
 lint: ## Run linting checks (ruff and mypy)
-	uv --project backend run ruff check .
+	cd backend && uv run ruff check .
 	cd backend && uv run mypy app
 
 .PHONY: format
 format: ## Run code formatting (ruff)
-	uv --project backend run ruff format .
-	uv --project backend run ruff check . --fix
+	cd backend && uv run ruff format .
+	cd backend && uv run ruff check . --fix
 
 .PHONY: migrate
 migrate: ## Run database migrations to head
