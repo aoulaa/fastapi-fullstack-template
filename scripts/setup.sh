@@ -20,14 +20,14 @@ fi
 
 # Install dependencies
 echo "📦 Installing backend dependencies..."
-uv --project backend sync
+(cd backend && uv sync)
 
 # Run migrations
 echo "⚙️ Running database migrations..."
-cd backend && uv --project backend run alembic upgrade head
+(cd backend && uv run alembic upgrade head)
 
 # Create superuser
 echo "👤 Creating first superuser..."
-cd backend && uv --project backend run python -m app.commands.create_first_superuser
+(cd backend && uv run python -m app.commands.create_first_superuser)
 
 echo "✅ Setup complete! You can now run the app with 'make run' or 'docker-compose up'."
